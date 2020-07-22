@@ -2,6 +2,7 @@ import pytest
 
 import xarray as xr
 import cupy as cp
+import numpy as np
 import cupy_xarray
 
 
@@ -34,6 +35,9 @@ def test_data_array_accessor(tutorial_da_air):
 
     da = da.as_cupy()
     assert da.cupy.is_cupy
+
+    garr = da.cupy.get()
+    assert isinstance(garr, np.ndarray)
 
     da = da.cupy.as_numpy()
     assert not da.cupy.is_cupy
