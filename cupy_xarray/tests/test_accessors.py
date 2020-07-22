@@ -1,6 +1,7 @@
 import pytest
 
 import xarray as xr
+from xarray.core.pycompat import dask_array_type
 import cupy as cp
 import numpy as np
 import cupy_xarray
@@ -14,6 +15,18 @@ def tutorial_ds_air():
 @pytest.fixture
 def tutorial_da_air(tutorial_ds_air):
     return tutorial_ds_air.air
+
+
+@pytest.fixture
+def tutorial_ds_air_dask():
+    return xr.tutorial.open_dataset(
+        "air_temperature", chunks={"lat": 25, "lon": 25, "time": -1}
+    )
+
+
+@pytest.fixture
+def tutorial_da_air_dask(tutorial_ds_air_dask):
+    return tutorial_ds_air_dask.air
 
 
 def test_data_set_accessor(tutorial_ds_air):
@@ -38,6 +51,19 @@ def test_data_array_accessor(tutorial_da_air):
 
     garr = da.cupy.get()
     assert isinstance(garr, np.ndarray)
+
+    da = da.cupy.as_numpy()
+    assert not da.cupy.is_cupy
+
+
+def test_data_array_accessor_dask(tutorial_da_air_dask):
+    da = tutorial_da_air_dask
+    assert hasattr(da, "cupy")
+    assert not da.cupy.is_cupy
+
+    da = da.as_cupy()
+    assert da.cupy.is_cupy
+    assert isinstance(da.data, dask_array_type)
 
     da = da.cupy.as_numpy()
     assert not da.cupy.is_cupy
