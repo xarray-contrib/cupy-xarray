@@ -1,5 +1,7 @@
 # cupy-xarray
 
+> ⚠️ Experimental
+
 Interface for using cupy in xarray, providing convenience accessors.
 
 
