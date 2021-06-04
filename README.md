@@ -8,7 +8,7 @@ Interface for using cupy in xarray, providing convenience accessors.
 ## Installation
 
 ```console
-$ pip install git+https://github.com/jacobtomlinson/cupy-xarray.git
+$ pip install git+https://github.com/xarray-contrib/cupy-xarray.git
 ```
 
 ## Usage
