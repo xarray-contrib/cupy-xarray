@@ -1,6 +1,6 @@
 # cupy-xarray
 
-> ⚠️ Experimental
+> ⚠️ This project is looking for maintainers and contributors. Come help out!
 
 Interface for using cupy in xarray, providing convenience accessors.
 
