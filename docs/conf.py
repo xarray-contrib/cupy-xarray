@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import cupy_xarray
+# import cupy_xarray
 import sphinx_autosummary_accessors
 
 project = 'cupy-xarray'

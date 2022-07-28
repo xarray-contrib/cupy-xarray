@@ -6,5 +6,4 @@
    :maxdepth: 1
 
    quickstart
-   api.rst
 ```

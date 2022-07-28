@@ -13,5 +13,5 @@ dependencies:
   - ipywidgets
   - furo
   - myst-nb
-  - cupy
-  - xarray
+  # - cupy
+  # - xarray
