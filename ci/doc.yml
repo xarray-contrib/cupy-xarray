@@ -13,5 +13,7 @@ dependencies:
   - ipywidgets
   - furo
   - pip:
+      # Best with PIP_NO_DEPS=1 to avoid installing cupy
+      # This env variable is set on readthedocs
       - git+https://github.com/xarray-contrib/cupy-xarray
       - myst_nb
