@@ -1,0 +1,17 @@
+name: cupy-xarray-doc
+channels:
+  - conda-forge
+dependencies:
+  - pip
+  - python=3.10
+  - sphinx
+  - sphinx-copybutton
+  - numpydoc
+  - sphinx-autosummary-accessors
+  - ipython
+  - ipykernel
+  - ipywidgets
+  - furo
+  - myst-nb
+  # - cupy
+  # - xarray
