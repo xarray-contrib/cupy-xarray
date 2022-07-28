@@ -18,14 +18,14 @@ release = 'v0.1'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    "sphinx.ext.autodoc",
+    # "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
-    "sphinx.ext.autosummary",
+    # "sphinx.ext.autosummary",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
     "sphinx.ext.extlinks",
     "numpydoc",
-    "sphinx_autosummary_accessors",
+    # "sphinx_autosummary_accessors",
     "IPython.sphinxext.ipython_directive",
     "myst_nb",
     "sphinx_copybutton",
@@ -38,7 +38,7 @@ extlinks = {
 }
 
 templates_path = ["_templates", sphinx_autosummary_accessors.templates_path]
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'api.rst']
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
