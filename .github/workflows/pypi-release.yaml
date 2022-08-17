@@ -6,7 +6,16 @@ on:
   push:
     tags:
       - 'v*'
+    branches:
+      - master
 
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build-artifacts:
     runs-on: ubuntu-latest
@@ -44,7 +53,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: releases
-          path: dis
+          path: dist
 
   test-built-dist:
     needs: build-artifacts
@@ -67,7 +76,7 @@ jobs:
         if: github.event_name == 'push'
         run: |
           python -m pip install --upgrade pip
-          python -m pip install dist/xarray*.whl
+          python -m pip install dist/cupy-xarray*.whl
           python -m cupy_xarray.__version__
 
       - name: Publish package to TestPyPI
