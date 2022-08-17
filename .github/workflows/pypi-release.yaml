@@ -7,15 +7,16 @@ on:
     tags:
       - 'v*'
     branches:
-      - master
+      - main
 
   pull_request:
     branches:
-      - master
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   build-artifacts:
     runs-on: ubuntu-latest
@@ -55,8 +56,10 @@ jobs:
           name: releases
           path: dist
 
+  
+
   upload-to-pypi:
-    needs: test-built-dist
+    needs: build-artifacts
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
