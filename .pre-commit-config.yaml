@@ -3,7 +3,7 @@ ci:
 
 exclude: |
   (?x)^(
-      versionner.py|
+      versioneer.py|
       cupy_xarray/_version.py
   )$
 
