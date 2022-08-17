@@ -19,25 +19,25 @@ release = 'v0.1'
 
 extensions = [
     # "sphinx.ext.autodoc",
-    "sphinx.ext.viewcode",
+    'sphinx.ext.viewcode',
     # "sphinx.ext.autosummary",
-    "sphinx.ext.doctest",
-    "sphinx.ext.intersphinx",
-    "sphinx.ext.extlinks",
-    "numpydoc",
+    'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.extlinks',
+    'numpydoc',
     # "sphinx_autosummary_accessors",
-    "IPython.sphinxext.ipython_directive",
-    "myst_nb",
-    "sphinx_copybutton",
+    'IPython.sphinxext.ipython_directive',
+    'myst_nb',
+    'sphinx_copybutton',
 ]
 
 
 extlinks = {
-    "issue": ("https://github.com/xarray-contrib/cupy-xarray/issues/%s", "GH#"),
-    "pr": ("https://github.com/xarray-contrib/cupy-xarray/pull/%s", "GH#"),
+    'issue': ('https://github.com/xarray-contrib/cupy-xarray/issues/%s', 'GH#'),
+    'pr': ('https://github.com/xarray-contrib/cupy-xarray/pull/%s', 'GH#'),
 }
 
-templates_path = ["_templates", sphinx_autosummary_accessors.templates_path]
+templates_path = ['_templates', sphinx_autosummary_accessors.templates_path]
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'api.rst']
 
 # -- Options for HTML output -------------------------------------------------
@@ -48,11 +48,11 @@ html_static_path = ['_static']
 
 
 # Myst_nb options
-nb_execution_mode = "off"
+nb_execution_mode = 'off'
 
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3/", None),
-    "dask": ("https://docs.dask.org/en/latest", None),
-    "cupy": ("https://docs.cupy.dev/en/latest", None),
-    "xarray": ("http://docs.xarray.dev/en/latest/", None),
+    'python': ('https://docs.python.org/3/', None),
+    'dask': ('https://docs.dask.org/en/latest', None),
+    'cupy': ('https://docs.cupy.dev/en/latest', None),
+    'xarray': ('http://docs.xarray.dev/en/latest/', None),
 }

@@ -1,15 +1,14 @@
+import numpy as np
 import pytest
-
 import xarray as xr
 from xarray.core.pycompat import dask_array_type
-import cupy as cp
-import numpy as np
-import cupy_xarray
+
+import cupy_xarray  # noqa: F401
 
 
 @pytest.fixture
 def tutorial_ds_air():
-    return xr.tutorial.load_dataset("air_temperature")
+    return xr.tutorial.load_dataset('air_temperature')
 
 
 @pytest.fixture
@@ -19,9 +18,7 @@ def tutorial_da_air(tutorial_ds_air):
 
 @pytest.fixture
 def tutorial_ds_air_dask():
-    return xr.tutorial.open_dataset(
-        "air_temperature", chunks={"lat": 25, "lon": 25, "time": -1}
-    )
+    return xr.tutorial.open_dataset('air_temperature', chunks={'lat': 25, 'lon': 25, 'time': -1})
 
 
 @pytest.fixture
@@ -31,7 +28,7 @@ def tutorial_da_air_dask(tutorial_ds_air_dask):
 
 def test_data_set_accessor(tutorial_ds_air):
     ds = tutorial_ds_air
-    assert hasattr(ds, "cupy")
+    assert hasattr(ds, 'cupy')
     assert not ds.cupy.is_cupy
 
     ds = ds.as_cupy()
@@ -43,7 +40,7 @@ def test_data_set_accessor(tutorial_ds_air):
 
 def test_data_array_accessor(tutorial_da_air):
     da = tutorial_da_air
-    assert hasattr(da, "cupy")
+    assert hasattr(da, 'cupy')
     assert not da.cupy.is_cupy
 
     da = da.as_cupy()
@@ -58,7 +55,7 @@ def test_data_array_accessor(tutorial_da_air):
 
 def test_data_array_accessor_dask(tutorial_da_air_dask):
     da = tutorial_da_air_dask
-    assert hasattr(da, "cupy")
+    assert hasattr(da, 'cupy')
     assert not da.cupy.is_cupy
 
     da = da.as_cupy()

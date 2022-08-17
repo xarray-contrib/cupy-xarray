@@ -1,24 +1,25 @@
 import setuptools
+
 import versioneer
 
-with open("README.md", "r") as fh:
+with open('README.md') as fh:
     long_description = fh.read()
-with open("requirements.txt", "r") as fh:
+with open('requirements.txt') as fh:
     requirements = [line.strip() for line in fh]
 
 setuptools.setup(
-    name="cupy-xarray",
+    name='cupy-xarray',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    author="cupy-xarray developers",
-    description="Interface for using cupy in xarray, providing convenience accessors.",
+    author='cupy-xarray developers',
+    description='Interface for using cupy in xarray, providing convenience accessors.',
     long_description=long_description,
-    long_description_content_type="text/markdown",
+    long_description_content_type='text/markdown',
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "Operating System :: OS Independent",
+        'Programming Language :: Python :: 3',
+        'Operating System :: OS Independent',
     ],
-    python_requires=">=3.7",
+    python_requires='>=3.7',
     install_requires=requirements,
 )

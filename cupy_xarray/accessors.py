@@ -1,15 +1,9 @@
 import cupy as cp
-
-from xarray import (
-    DataArray,
-    Dataset,
-    register_dataarray_accessor,
-    register_dataset_accessor,
-)
+from xarray import DataArray, Dataset, register_dataarray_accessor, register_dataset_accessor
 from xarray.core.pycompat import dask_array_type
 
 
-@register_dataarray_accessor("cupy")
+@register_dataarray_accessor('cupy')
 class CupyDataArrayAccessor:
     """
     Access methods for DataArrays using Cupy.
@@ -99,7 +93,7 @@ class CupyDataArrayAccessor:
         return self.da.data.get()
 
 
-@register_dataset_accessor("cupy")
+@register_dataset_accessor('cupy')
 class CupyDatasetAccessor:
     """
     Access methods for DataArrays using Cupy.
@@ -119,11 +113,11 @@ class CupyDatasetAccessor:
 
     def as_numpy(self):
         if self.is_cupy:
-            data_vars = {
-                var: da.cupy.as_numpy() for var, da in self.ds.data_vars.items()
-            }
+            data_vars = {var: da.cupy.as_numpy() for var, da in self.ds.data_vars.items()}
             return Dataset(
-                data_vars=data_vars, coords=self.ds.coords, attrs=self.ds.attrs,
+                data_vars=data_vars,
+                coords=self.ds.coords,
+                attrs=self.ds.attrs,
             )
         else:
             return self.ds.as_numpy()
@@ -134,7 +128,7 @@ class CupyDatasetAccessor:
 # libraries like this could register new ``as_`` methods for dispatch.
 
 
-@register_dataarray_accessor("as_cupy")
+@register_dataarray_accessor('as_cupy')
 def _(da):
     """
     Converts the DataArray's underlying array type to cupy.
@@ -148,7 +142,7 @@ def _(da):
     return as_cupy
 
 
-@register_dataset_accessor("as_cupy")
+@register_dataset_accessor('as_cupy')
 def _(ds):
     """
     Converts the Dataset's underlying Dataarray's array type to cupy.
