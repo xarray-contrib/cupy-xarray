@@ -56,8 +56,6 @@ jobs:
           name: releases
           path: dist
 
-  
-
   upload-to-pypi:
     needs: build-artifacts
     if: github.event_name == 'release'

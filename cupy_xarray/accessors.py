@@ -1,5 +1,4 @@
 import cupy as cp
-
 from xarray import (
     DataArray,
     Dataset,
@@ -119,11 +118,11 @@ class CupyDatasetAccessor:
 
     def as_numpy(self):
         if self.is_cupy:
-            data_vars = {
-                var: da.cupy.as_numpy() for var, da in self.ds.data_vars.items()
-            }
+            data_vars = {var: da.cupy.as_numpy() for var, da in self.ds.data_vars.items()}
             return Dataset(
-                data_vars=data_vars, coords=self.ds.coords, attrs=self.ds.attrs,
+                data_vars=data_vars,
+                coords=self.ds.coords,
+                attrs=self.ds.attrs,
             )
         else:
             return self.ds.as_numpy()

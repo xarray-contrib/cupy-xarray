@@ -1,10 +1,9 @@
+import numpy as np
 import pytest
-
 import xarray as xr
 from xarray.core.pycompat import dask_array_type
-import cupy as cp
-import numpy as np
-import cupy_xarray
+
+import cupy_xarray  # noqa: F401
 
 
 @pytest.fixture
@@ -19,9 +18,7 @@ def tutorial_da_air(tutorial_ds_air):
 
 @pytest.fixture
 def tutorial_ds_air_dask():
-    return xr.tutorial.open_dataset(
-        "air_temperature", chunks={"lat": 25, "lon": 25, "time": -1}
-    )
+    return xr.tutorial.open_dataset("air_temperature", chunks={"lat": 25, "lon": 25, "time": -1})
 
 
 @pytest.fixture

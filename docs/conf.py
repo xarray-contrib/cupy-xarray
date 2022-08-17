@@ -9,10 +9,10 @@
 # import cupy_xarray
 import sphinx_autosummary_accessors
 
-project = 'cupy-xarray'
-copyright = '2022, cupy-xarray developers'
-author = 'cupy-xarray developers'
-release = 'v0.1'
+project = "cupy-xarray"
+copyright = "2022, cupy-xarray developers"
+author = "cupy-xarray developers"
+release = "v0.1"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -38,13 +38,13 @@ extlinks = {
 }
 
 templates_path = ["_templates", sphinx_autosummary_accessors.templates_path]
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'api.rst']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "api.rst"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'furo'
-html_static_path = ['_static']
+html_theme = "furo"
+html_static_path = ["_static"]
 
 
 # Myst_nb options
