@@ -1,5 +1,5 @@
 ci:
-  autoupdate_schedule: monthly
+  autoupdate_schedule: quarterly
 
 exclude: '^(_version|versionner)*'
 
