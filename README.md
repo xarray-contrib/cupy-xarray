@@ -2,6 +2,16 @@
 
 > ⚠️ This project is looking for maintainers and contributors. Come help out!
 
+[![GitHub Workflow CI Status](https://img.shields.io/github/workflow/status/xarray-contrib/cupy-xarray/CI?logo=github&style=flat)](https://github.com/xarray-contrib/cupy-xarray/actions)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/xarray-contrib/cupy-xarray/main.svg)](https://results.pre-commit.ci/latest/github/xarray-contrib/cupy-xarray/main)
+[![Documentation Status](https://readthedocs.org/projects/cupy-xarray/badge/?version=latest)](https://cupy-xarray.readthedocs.io/en/latest/?badge=latest)
+
+[![PyPI](https://img.shields.io/pypi/v/cupy-xarray.svg?style=flat)](https://pypi.org/project/cupy-xarray/)
+[![Conda-forge](https://img.shields.io/conda/vn/conda-forge/cupy-xarray.svg?style=flat)](https://anaconda.org/conda-forge/cupy-xarray)
+
+[![NASA-80NSSC22K0345](https://img.shields.io/badge/NASA-80NSSC22K0345-blue)](https://science.nasa.gov/open-science-overview)
+
+
 Interface for using cupy in xarray, providing convenience accessors.
 
 ## Installation
