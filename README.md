@@ -11,7 +11,6 @@
 
 [![NASA-80NSSC22K0345](https://img.shields.io/badge/NASA-80NSSC22K0345-blue)](https://science.nasa.gov/open-science-overview)
 
-
 Interface for using cupy in xarray, providing convenience accessors.
 
 ## Installation
