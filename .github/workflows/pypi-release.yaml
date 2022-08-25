@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-artifacts:
+  build-package:
     runs-on: ubuntu-latest
     if: github.repository == 'xarray-contrib/cupy-xarray'
     steps:
