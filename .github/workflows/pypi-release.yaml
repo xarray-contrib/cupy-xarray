@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: releases
+          name: Packages
           path: dist
 
       - name: Check
