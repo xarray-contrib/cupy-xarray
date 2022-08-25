@@ -27,23 +27,16 @@ jobs:
           fetch-depth: 0
       - name: Build & inspect package
         uses: hynek/build-and-inspect-python-package@v1
-      - uses: actions/upload-artifact@v3
-        with:
-          name: releases
-          path: dist
+        id: distribution
+      - name: Check
+        run: |
+          ls -ltrh ${{ steps.distribution.outputs.dist }}
 
-  upload-to-pypi:
-    needs: build-artifacts
-    if: github.event_name == 'release'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: releases
-          path: dist
       - name: Publish package to PyPI
+        if: github.event_name == 'release'
         uses: pypa/gh-action-pypi-publish@v1.5.1
         with:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
           verbose: true
+          packages_dir: ${{ steps.distribution.outputs.dist }}
