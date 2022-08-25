@@ -29,14 +29,10 @@ jobs:
         uses: hynek/build-and-inspect-python-package@v1.3
         id: distribution
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: releases
-          path: ${{ steps.distribution.outputs.dist }}
-
   upload:
     runs-on: ubuntu-latest
     needs: build
+    if: github.event_name == 'release'
 
     steps:
       - uses: actions/download-artifact@v3
@@ -49,7 +45,6 @@ jobs:
           ls -ltrh dist
 
       - name: Publish package to PyPI
-        if: github.event_name == 'release'
         uses: pypa/gh-action-pypi-publish@v1.5.1
         with:
           user: __token__
