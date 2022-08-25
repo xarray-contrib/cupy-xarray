@@ -27,6 +27,12 @@ jobs:
           fetch-depth: 0
       - name: Build & inspect package
         uses: hynek/build-and-inspect-python-package@v1.3
+        id: distribution
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: releases
+          path: ${{ steps.distribution.outputs.dist }}
 
   upload:
     runs-on: ubuntu-latest
@@ -35,12 +41,12 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: packages
-          path: /tmp/baipp/dist
+          name: releases
+          path: dist
 
       - name: Check
         run: |
-          ls -ltrh /tmp/baipp/dist
+          ls -ltrh dist
 
       - name: Publish package to PyPI
         if: github.event_name == 'release'
@@ -49,4 +55,3 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
           verbose: true
-          packages_dir: packages/
