@@ -2,7 +2,7 @@ import setuptools
 
 import versioneer
 
-with open("README.md") as fh:
+with open("README.md", encoding="utf-8") as fh:
     long_description = fh.read()
 with open("requirements.txt") as fh:
     requirements = [line.strip() for line in fh]
