@@ -7,8 +7,8 @@ from xarray import (
 )
 from xarray.core.pycompat import DuckArrayModule
 
-dsk = DuckArrayModule("dask")
-dask_array_type = dsk.type
+dask_array_type = DuckArrayModule("dask").type
+pint_array_type = DuckArrayModule("pint").type
 
 
 @register_dataarray_accessor("cupy")
@@ -26,6 +26,8 @@ class CupyDataArrayAccessor:
         """bool: The underlying data is a cupy array."""
         if isinstance(self.da.data, dask_array_type):
             return isinstance(self.da.data._meta, cp.ndarray)
+        if isinstance(self.da.data, pint_array_type):
+            return isinstance(self.da.data.magnitude, cp.ndarray)
         return isinstance(self.da.data, cp.ndarray)
 
     def as_cupy(self):
