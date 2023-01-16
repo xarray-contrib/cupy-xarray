@@ -1,14 +1,16 @@
 import numpy as np
 import pytest
 import xarray as xr
-from xarray.tests import requires_pint
 from xarray.core.pycompat import DuckArrayModule
+from xarray.tests import requires_pint
 
 dask_array_type = DuckArrayModule("dask").type
 pint_array_type = DuckArrayModule("pint").type
 
-import cupy_xarray  # noqa: F401
 from pint import UnitRegistry
+
+import cupy_xarray  # noqa: F401
+
 ureg = UnitRegistry()
 
 
@@ -34,17 +36,12 @@ def tutorial_da_air_dask(tutorial_ds_air_dask):
 
 @pytest.fixture
 def tutorial_ds_air_pint():
-    return (
-        xr.tutorial.load_dataset("air_temperature")
-        * ureg.Quantity("degree_Kelvin")
-    )
+    return xr.tutorial.load_dataset("air_temperature") * ureg.Quantity("degree_Kelvin")
 
 
 @pytest.fixture
 def tutorial_da_air_pint(tutorial_ds_air_pint):
     return tutorial_ds_air_pint.air
-
-
 
 
 def test_data_set_accessor(tutorial_ds_air):
