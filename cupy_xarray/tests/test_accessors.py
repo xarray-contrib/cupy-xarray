@@ -1,9 +1,15 @@
 import numpy as np
 import pytest
 import xarray as xr
-from xarray.core.pycompat import dask_array_type
+from xarray.tests import requires_pint
+from xarray.core.pycompat import DuckArrayModule
+
+dask_array_type = DuckArrayModule("dask").type
+pint_array_type = DuckArrayModule("pint").type
 
 import cupy_xarray  # noqa: F401
+from pint import UnitRegistry
+ureg = UnitRegistry()
 
 
 @pytest.fixture
@@ -24,6 +30,21 @@ def tutorial_ds_air_dask():
 @pytest.fixture
 def tutorial_da_air_dask(tutorial_ds_air_dask):
     return tutorial_ds_air_dask.air
+
+
+@pytest.fixture
+def tutorial_ds_air_pint():
+    return (
+        xr.tutorial.load_dataset("air_temperature")
+        * ureg.Quantity("degree_Kelvin")
+    )
+
+
+@pytest.fixture
+def tutorial_da_air_pint(tutorial_ds_air_pint):
+    return tutorial_ds_air_pint.air
+
+
 
 
 def test_data_set_accessor(tutorial_ds_air):
@@ -61,6 +82,20 @@ def test_data_array_accessor_dask(tutorial_da_air_dask):
     da = da.as_cupy()
     assert da.cupy.is_cupy
     assert isinstance(da.data, dask_array_type)
+
+    da = da.cupy.as_numpy()
+    assert not da.cupy.is_cupy
+
+
+@requires_pint
+def test_data_array_accessor_pint(tutorial_da_air_pint):
+    da = tutorial_da_air_pint
+    assert hasattr(da, "cupy")
+    assert not da.cupy.is_cupy
+
+    da = da.as_cupy()
+    assert da.cupy.is_cupy
+    assert isinstance(da.data, pint_array_type)
 
     da = da.cupy.as_numpy()
     assert not da.cupy.is_cupy
