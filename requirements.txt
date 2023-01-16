@@ -1,2 +1,2 @@
 cupy
-xarray
+xarray>=0.19.0
