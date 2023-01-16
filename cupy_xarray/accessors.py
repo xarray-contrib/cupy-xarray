@@ -62,7 +62,13 @@ class CupyDataArrayAccessor:
                 attrs=self.da.attrs,
             )
         if isinstance(self.da.data, pint_array_type):
-            return self.da.pint.dequantify().cupy.as_cupy().pint.quantify()
+            return DataArray(
+                data=(self.da.data.units * cp.asarray(self.da.data.magnitude)),
+                coords=self.da.coords,
+                dims=self.da.dims,
+                name=self.da.name,
+                attrs=self.da.attrs,
+            )
         return DataArray(
             data=cp.asarray(self.da.data),
             coords=self.da.coords,
