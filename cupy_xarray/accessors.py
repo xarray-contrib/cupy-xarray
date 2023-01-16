@@ -54,28 +54,14 @@ class CupyDataArrayAccessor:
 
         """
         if isinstance(self.da.data, dask_array_type):
-            return DataArray(
+            return self._as_dataarray(
                 data=self.da.data.map_blocks(cp.asarray),
-                coords=self.da.coords,
-                dims=self.da.dims,
-                name=self.da.name,
-                attrs=self.da.attrs,
             )
         if isinstance(self.da.data, pint_array_type):
-            return DataArray(
+            return self._as_dataarray(
                 data=(self.da.data.units * cp.asarray(self.da.data.magnitude)),
-                coords=self.da.coords,
-                dims=self.da.dims,
-                name=self.da.name,
-                attrs=self.da.attrs,
             )
-        return DataArray(
-            data=cp.asarray(self.da.data),
-            coords=self.da.coords,
-            dims=self.da.dims,
-            name=self.da.name,
-            attrs=self.da.attrs,
-        )
+        return self._as_dataarray(data=cp.asarray(self.da.data))
 
     def as_numpy(self):
         """
@@ -89,26 +75,25 @@ class CupyDataArrayAccessor:
         """
         if self.is_cupy:
             if isinstance(self.da.data, dask_array_type):
-                return DataArray(
+                return self._as_dataarray(
                     data=self.da.data.map_blocks(
                         lambda block: block.get(), dtype=self.da.data._meta.dtype
                     ),
-                    coords=self.da.coords,
-                    dims=self.da.dims,
-                    name=self.da.name,
-                    attrs=self.da.attrs,
                 )
-            return DataArray(
-                data=self.da.data.get(),
-                coords=self.da.coords,
-                dims=self.da.dims,
-                name=self.da.name,
-                attrs=self.da.attrs,
-            )
+            return self._as_dataarray(data=self.da.data.get())
         return self.da.as_numpy()
 
     def get(self):
         return self.da.data.get()
+
+    def _as_dataarray(self, data):
+        return DataArray(
+            data=data,
+            coords=self.da.coords,
+            dims=self.da.dims,
+            name=self.da.name,
+            attrs=self.da.attrs,
+        )
 
 
 @register_dataset_accessor("cupy")
