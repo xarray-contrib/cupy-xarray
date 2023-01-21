@@ -147,6 +147,8 @@ class GDSZarrStore(ZarrStore):
 
 class KvikioBackendEntrypoint(ZarrBackendEntrypoint):
     available = has_kvikio
+    description = "Open zarr files (.zarr) using Kvikio"
+    url = "https://docs.rapids.ai/api/kvikio/nightly/api.html#zarr"
 
     # disabled by default
     # We need to provide this because of the subclassing from
