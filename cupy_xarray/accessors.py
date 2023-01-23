@@ -58,8 +58,9 @@ class CupyDataArrayAccessor:
                 data=self.da.data.map_blocks(cp.asarray),
             )
         if isinstance(self.da.data, pint_array_type):
+            from pint import Quantity
             return self._as_dataarray(
-                data=(self.da.data.units * cp.asarray(self.da.data.magnitude)),
+                data=Quantity(cp.asarray(self.da.data.magnitude), units=self.da.data.units),
             )
         return self._as_dataarray(data=cp.asarray(self.da.data))
 
