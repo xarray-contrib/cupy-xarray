@@ -46,10 +46,9 @@ def tutorial_da_air_pint(tutorial_ds_air_pint):
 
 @pytest.fixture
 def tutorial_ds_air_pint_dask():
-    return (
-        xr.tutorial.open_dataset("air_temperature", chunks={"lat": 25, "lon": 25, "time": -1})
-        * ureg.Quantity("degree_Kelvin")
-    )
+    return xr.tutorial.open_dataset(
+        "air_temperature", chunks={"lat": 25, "lon": 25, "time": -1}
+    ) * ureg.Quantity("degree_Kelvin")
 
 
 @pytest.fixture
