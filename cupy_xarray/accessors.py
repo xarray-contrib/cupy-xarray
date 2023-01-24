@@ -87,9 +87,7 @@ class CupyDataArrayAccessor:
     @classmethod
     def _as_numpy_data(cls, data):
         if isinstance(data, dask_array_type):
-            return data.map_blocks(
-                lambda block: block.get(), dtype=data._meta.dtype
-            )
+            return data.map_blocks(lambda block: block.get(), dtype=data._meta.dtype)
         if isinstance(data, pint_array_type):
             from pint import Quantity
 
