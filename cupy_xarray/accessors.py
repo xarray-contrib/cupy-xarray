@@ -24,11 +24,15 @@ class CupyDataArrayAccessor:
     @property
     def is_cupy(self):
         """bool: The underlying data is a cupy array."""
-        if isinstance(self.da.data, dask_array_type):
-            return isinstance(self.da.data._meta, cp.ndarray)
-        if isinstance(self.da.data, pint_array_type):
-            return isinstance(self.da.data.magnitude, cp.ndarray)
-        return isinstance(self.da.data, cp.ndarray)
+        return self._get_datatype(self.da.data)
+
+    @classmethod
+    def _get_datatype(cls, data):
+        if isinstance(data, dask_array_type):
+            return isinstance(data._meta, cp.ndarray)
+        elif isinstance(data, pint_array_type):
+            return cls._get_datatype(data.magnitude)
+        return isinstance(data, cp.ndarray)
 
     def as_cupy(self):
         """
@@ -53,17 +57,20 @@ class CupyDataArrayAccessor:
         <class 'cupy.core.core.ndarray'>
 
         """
-        if isinstance(self.da.data, dask_array_type):
-            return self._as_dataarray(
-                data=self.da.data.map_blocks(cp.asarray),
-            )
-        if isinstance(self.da.data, pint_array_type):
+        return self._as_dataarray(self._as_cupy_data(self.da.data))
+
+    @classmethod
+    def _as_cupy_data(cls, data):
+        if isinstance(data, dask_array_type):
+            return data.map_blocks(cp.asarray)
+        if isinstance(data, pint_array_type):
             from pint import Quantity
 
-            return self._as_dataarray(
-                data=Quantity(cp.asarray(self.da.data.magnitude), units=self.da.data.units),
+            return Quantity(
+                cls._as_cupy_data(data.magnitude),
+                units=data.units,
             )
-        return self._as_dataarray(data=cp.asarray(self.da.data))
+        return cp.asarray(data)
 
     def as_numpy(self):
         """
@@ -75,15 +82,24 @@ class CupyDataArrayAccessor:
             DataArray with underlying data cast to numpy.
 
         """
-        if self.is_cupy:
-            if isinstance(self.da.data, dask_array_type):
-                return self._as_dataarray(
-                    data=self.da.data.map_blocks(
-                        lambda block: block.get(), dtype=self.da.data._meta.dtype
-                    ),
-                )
-            return self._as_dataarray(data=self.da.data.get())
-        return self.da.as_numpy()
+        return self._as_dataarray(self._as_numpy_data(self.da.data))
+
+    @classmethod
+    def _as_numpy_data(cls, data):
+        if isinstance(data, dask_array_type):
+            return data.map_blocks(
+                lambda block: block.get(), dtype=data._meta.dtype
+            )
+        if isinstance(data, pint_array_type):
+            from pint import Quantity
+
+            return Quantity(
+                cls._as_numpy_data(data.magnitude),
+                units=data.units,
+            )
+        if isinstance(data, cp.ndarray):
+            return data.get()
+        return data
 
     def get(self):
         return self.da.data.get()
