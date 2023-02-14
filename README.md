@@ -16,16 +16,19 @@ Interface for using cupy in xarray, providing convenience accessors.
 ## Installation
 
 From anaconda:
+
 ```console
 conda install cupy-xarray -c conda-forge
 ```
 
 From PyPI:
+
 ```console
 pip install cupy-xarray
 ```
 
 The latest version from Github:
+
 ```console
 pip install git+https://github.com/xarray-contrib/cupy-xarray.git
 ```
