@@ -57,20 +57,7 @@ class CupyDataArrayAccessor:
         <class 'cupy.core.core.ndarray'>
 
         """
-        return self._as_dataarray(self._as_cupy_data(self.da.data))
-
-    @classmethod
-    def _as_cupy_data(cls, data):
-        if isinstance(data, dask_array_type):
-            return data.map_blocks(cp.asarray)
-        if isinstance(data, pint_array_type):
-            from pint import Quantity
-
-            return Quantity(
-                cls._as_cupy_data(data.magnitude),
-                units=data.units,
-            )
-        return cp.asarray(data)
+        return self._as_dataarray(_as_cupy_data(self.da.data))
 
     def as_numpy(self):
         """
@@ -82,22 +69,7 @@ class CupyDataArrayAccessor:
             DataArray with underlying data cast to numpy.
 
         """
-        return self._as_dataarray(self._as_numpy_data(self.da.data))
-
-    @classmethod
-    def _as_numpy_data(cls, data):
-        if isinstance(data, dask_array_type):
-            return data.map_blocks(lambda block: block.get(), dtype=data._meta.dtype)
-        if isinstance(data, pint_array_type):
-            from pint import Quantity
-
-            return Quantity(
-                cls._as_numpy_data(data.magnitude),
-                units=data.units,
-            )
-        if isinstance(data, cp.ndarray):
-            return data.get()
-        return data
+        return self._as_dataarray(_as_numpy_data(self.da.data))
 
     def get(self):
         return self.da.data.get()
@@ -110,6 +82,33 @@ class CupyDataArrayAccessor:
             name=self.da.name,
             attrs=self.da.attrs,
         )
+
+
+def _as_cupy_data(data):
+    if isinstance(data, dask_array_type):
+        return data.map_blocks(cp.asarray)
+    if isinstance(data, pint_array_type):
+        from pint import Quantity # pylint: disable=import-outside-toplevel
+
+        return Quantity(
+            _as_cupy_data(data.magnitude),
+            units=data.units,
+        )
+    return cp.asarray(data)
+
+def _as_numpy_data(data):
+    if isinstance(data, dask_array_type):
+        return data.map_blocks(
+            lambda block: block.get(), dtype=data._meta.dtype
+        )
+    if isinstance(data, pint_array_type):
+        from pint import Quantity # pylint: disable=import-outside-toplevel
+
+        return Quantity(
+            _as_numpy_data(data.magnitude),
+            units=data.units,
+        )
+    return data.get() if isinstance(data, cp.ndarray) else data
 
 
 @register_dataset_accessor("cupy")
