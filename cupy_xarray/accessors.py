@@ -88,7 +88,7 @@ def _as_cupy_data(data):
     if isinstance(data, dask_array_type):
         return data.map_blocks(cp.asarray)
     if isinstance(data, pint_array_type):
-        from pint import Quantity # pylint: disable=import-outside-toplevel
+        from pint import Quantity  # pylint: disable=import-outside-toplevel
 
         return Quantity(
             _as_cupy_data(data.magnitude),
@@ -96,13 +96,12 @@ def _as_cupy_data(data):
         )
     return cp.asarray(data)
 
+
 def _as_numpy_data(data):
     if isinstance(data, dask_array_type):
-        return data.map_blocks(
-            lambda block: block.get(), dtype=data._meta.dtype
-        )
+        return data.map_blocks(lambda block: block.get(), dtype=data._meta.dtype)
     if isinstance(data, pint_array_type):
-        from pint import Quantity # pylint: disable=import-outside-toplevel
+        from pint import Quantity  # pylint: disable=import-outside-toplevel
 
         return Quantity(
             _as_numpy_data(data.magnitude),
