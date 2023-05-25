@@ -2,7 +2,7 @@
 import cupy as cp
 import dask.array as da
 import numpy as np
-import pint_xarray  # pylint:disable=unused-import
+import pint_xarray  # noqa: F401 pylint:disable=unused-import
 import pytest
 import xarray as xr
 from xarray.core.pycompat import DuckArrayModule
