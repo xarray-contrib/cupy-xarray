@@ -2,7 +2,7 @@
 
 ![GitHub Workflow CI Status](https://img.shields.io/github/actions/workflow/status/xarray-contrib/cupy-xarray/pypi-release.yaml?style=flat-square)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/xarray-contrib/cupy-xarray/main.svg?style=flat-square)](https://results.pre-commit.ci/latest/github/xarray-contrib/cupy-xarray/main)
-[![Documentation Status](https://readthedocs.org/projects/cupy-xarray/badge/?version=latest&style=flat-square)](https://cupy-xarray.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/cupy-xarray/badge/?version=latest&style=flat-square)](https://cupy-xarray.readthedocs.io)
 [![license](https://img.shields.io/github/license/xarray-contrib/cupy-xarray.svg?style=flat-square)](https://github.com/xarray-contrib/cupy-xarray)
 
 [![PyPI](https://img.shields.io/pypi/v/cupy-xarray.svg?style=flat-square)](https://pypi.org/project/cupy-xarray/)
