@@ -5,13 +5,10 @@
 [![Documentation Status](https://readthedocs.org/projects/cupy-xarray/badge/?version=latest&style=flat-square)](https://cupy-xarray.readthedocs.io/en/latest/?badge=latest)
 [![license](https://img.shields.io/github/license/xarray-contrib/cupy-xarray.svg?style=flat-square)](https://github.com/xarray-contrib/cupy-xarray)
 
-
 [![PyPI](https://img.shields.io/pypi/v/cupy-xarray.svg?style=flat-square)](https://pypi.org/project/cupy-xarray/)
 [![Conda-forge](https://img.shields.io/conda/vn/conda-forge/cupy-xarray.svg?style=flat-square)](https://anaconda.org/conda-forge/cupy-xarray)
 
 [![NASA-80NSSC22K0345](https://img.shields.io/badge/NASA-80NSSC22K0345-blue?style=flat-square)](https://science.nasa.gov/open-science-overview)
-
-
 
 ## Overview
 
@@ -22,23 +19,27 @@ CuPy-Xarray is a Python library that leverages CuPy, a GPU array library, and Xa
 CuPy-Xarray can be installed using `pip` or `conda`:
 
 From anaconda:
+
 ```bash
 
 conda install cupy-xarray -c conda-forge
 ```
 
 From PyPI:
+
 ```bash
 pip install cupy-xarray
 ```
 
 The latest version from Github:
-```bash 
+
+```bash
 pip install git+https://github.com/xarray-contrib/cupy-xarray.git
 ```
 
 ## Acknowledgements
- Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutorial](https://negin513.github.io/cupy-xarray-tutorials/README.html). The original notebook also adapts from the content in [this NCAR tutorial to GPUs](https://github.com/NCAR/GPU_workshop/tree/workshop/13_CuPyAndLegate), and uses it to illustrate cupy-xarray and working with cupy arrays and Xarray objects in general.
+
+Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutorial](https://negin513.github.io/cupy-xarray-tutorials/README.html). The original notebook also adapts from the content in [this NCAR tutorial to GPUs](https://github.com/NCAR/GPU_workshop/tree/workshop/13_CuPyAndLegate), and uses it to illustrate cupy-xarray and working with cupy arrays and Xarray objects in general.
 
 ## Contents
 
@@ -55,14 +56,15 @@ pip install git+https://github.com/xarray-contrib/cupy-xarray.git
    source/Notebook2_Xarray_Cupy_BasicOperations
    source/Notebook3_Xarray_Cupy_HighLevel
    source/Notebook4_Xarray_Cupy_ApplyUfunc
-   
-**Demo**:
+
+
+** Tutorials & Presentations**:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Demo
+   :caption: Tutorials & Presentations
 
-   source/Notebook5_Xarray_Cupy_Example
+   source/tutorials-and-presentations
 
 **Contributing**:
 
@@ -79,6 +81,6 @@ pip install git+https://github.com/xarray-contrib/cupy-xarray.git
    :maxdepth: 1
    :caption: API Reference
 
-   
+
 
 ```
