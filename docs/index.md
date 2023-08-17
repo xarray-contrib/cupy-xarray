@@ -58,7 +58,7 @@ Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutoria
    source/Notebook4_Xarray_Cupy_ApplyUfunc
 
 
-** Tutorials & Presentations**:
+**Tutorials & Presentations**:
 
 .. toctree::
    :maxdepth: 1
@@ -80,6 +80,8 @@ Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutoria
 .. toctree::
    :maxdepth: 1
    :caption: API Reference
+
+   api
 
 
 
