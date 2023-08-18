@@ -20,6 +20,24 @@ except ImportError:
     has_kvikio = False
 
 
+class DummyZarrArrayWrapper(ZarrArrayWrapper):
+    def __init__(self, array: np.ndarray):
+        assert isinstance(array, np.ndarray)
+        self._array = array
+        self.filters = None
+        self.dtype = array.dtype
+        self.shape = array.shape
+
+    def __array__(self):
+        return self._array
+
+    def get_array(self):
+        return self._array
+
+    def __getitem__(self, key):
+        return self._array[key]
+
+
 class CupyZarrArrayWrapper(ZarrArrayWrapper):
     def __array__(self):
         return self.get_array()
@@ -32,7 +50,8 @@ class EagerCupyZarrArrayWrapper(ZarrArrayWrapper):
         return self.datastore.zarr_group[self.variable_name][:].get()
 
     def get_array(self):
-        return np.asarray(self)
+        # total hack: make a numpy array look like a Zarr array
+        return DummyZarrArrayWrapper(self.datastore.zarr_group[self.variable_name][:].get())
 
 
 class GDSZarrStore(ZarrStore):
@@ -52,7 +71,6 @@ class GDSZarrStore(ZarrStore):
         safe_chunks=True,
         stacklevel=2,
     ):
-
         # zarr doesn't support pathlib.Path objects yet. zarr-python#601
         if isinstance(store, os.PathLike):
             store = os.fspath(store)
@@ -112,7 +130,6 @@ class GDSZarrStore(ZarrStore):
         )
 
     def open_store_variable(self, name, zarr_array):
-
         try_nczarr = self._mode == "r"
         dimensions, attributes = zarr_backend._get_zarr_dims_and_attrs(
             zarr_array, zarr_backend.DIMENSION_KEY, try_nczarr
@@ -174,7 +191,6 @@ class KvikioBackendEntrypoint(ZarrBackendEntrypoint):
         storage_options=None,
         stacklevel=3,
     ):
-
         filename_or_obj = _normalize_path(filename_or_obj)
         store = GDSZarrStore.open_group(
             filename_or_obj,
