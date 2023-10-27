@@ -46,7 +46,7 @@ def test_pint(obj):
     as_pint = obj.pint.quantify()
 
     assert not as_pint.cupy.is_cupy
-    cpda = as_pint.cupy.as_cup()
+    cpda = as_pint.cupy.as_cupy()
     assert cpda.cupy.is_cupy
 
     as_dask = as_pint.chunk()
