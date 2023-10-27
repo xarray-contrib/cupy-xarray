@@ -41,15 +41,21 @@ def test_dask(obj):
 @requires_pint
 @pytest.mark.parametrize("obj", [da, ds])
 def test_pint(obj):
+    import pint
     import pint_xarray  # noqa
 
     as_pint = obj.pint.quantify()
 
     assert not as_pint.cupy.is_cupy
     cpda = as_pint.cupy.as_cupy()
+    if isinstance(cpda, xr.DataArray):
+        assert isinstance(cpda.data, pint.Quantity)
     assert cpda.cupy.is_cupy
 
     as_dask = as_pint.chunk()
+    if isinstance(as_dask, xr.DataArray):
+        assert isinstance(as_dask.data, pint.Quantity)
+        assert isinstance(as_dask.data.magnitude._meta, np.ndarray)
     assert not as_dask.cupy.is_cupy
     cpda = as_dask.cupy.as_cupy()
     assert cpda.cupy.is_cupy
