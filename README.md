@@ -1,5 +1,6 @@
 # cupy-xarray
 
+> [!IMPORTANT]
 > ⚠️ This project is looking for maintainers and contributors. Come help out!
 
 ![GitHub Workflow CI Status](https://img.shields.io/github/actions/workflow/status/xarray-contrib/cupy-xarray/pypi-release.yaml?style=flat)
