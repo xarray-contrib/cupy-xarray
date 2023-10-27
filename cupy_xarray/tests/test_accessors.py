@@ -17,10 +17,10 @@ def test_numpy(obj):
 
     assert not da.cupy.is_cupy
     cpda = da.cupy.as_cupy()
-    assert cpda.is_cupy
+    assert cpda.cupy.is_cupy
 
     as_numpy = cpda.as_numpy()
-    assert not cpda.cupy.is_cupy
+    assert not as_numpy.cupy.is_cupy
     if isinstance(as_numpy, xr.DataArray):
         assert isinstance(as_numpy.data, np.ndarray)
 

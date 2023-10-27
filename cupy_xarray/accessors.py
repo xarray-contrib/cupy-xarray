@@ -6,7 +6,7 @@ dask_array_type = DuckArrayModule("dask").type
 pint_array_type = DuckArrayModule("pint").type
 
 
-def _get_datatype(cls, data):
+def _get_datatype(data):
     if isinstance(data, dask_array_type):
         return isinstance(data._meta, cp.ndarray)
     elif isinstance(data, pint_array_type):
