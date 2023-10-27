@@ -10,7 +10,7 @@
 import sphinx_autosummary_accessors
 
 project = "cupy-xarray"
-copyright = "2022, cupy-xarray developers"
+copyright = "2023, cupy-xarray developers"
 author = "cupy-xarray developers"
 release = "v0.1"
 

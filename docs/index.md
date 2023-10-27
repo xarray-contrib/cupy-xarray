@@ -39,9 +39,7 @@ pip install git+https://github.com/xarray-contrib/cupy-xarray.git
 
 ## Acknowledgements
 
-Huge acknowledgements to @dcherian, @andersy005, @jacobtomlinson , ... for their contributions and work on this project.
-
-Documentation: Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutorial](https://negin513.github.io/cupy-xarray-tutorials/README.html). The original notebook also adapts from the content in [this NCAR tutorial to GPUs](https://github.com/NCAR/GPU_workshop/tree/workshop/13_CuPyAndLegate), and uses it to illustrate cupy-xarray and working with cupy arrays and Xarray objects in general.
+Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutorial](https://negin513.github.io/cupy-xarray-tutorials/README.html) and [this NCAR tutorial to GPUs](https://github.com/NCAR/GPU_workshop/tree/workshop/13_CuPyAndLegate).
 
 ## Contents
 
@@ -53,11 +51,12 @@ Documentation: Large parts of this documentations comes from [SciPy 2023 Xarray 
    :maxdepth: 1
    :caption: User Guide
 
-   source/Notebook0_Introduction
-   source/Notebook1_Xarray_Cupy
-   source/Notebook2_Xarray_Cupy_BasicOperations
-   source/Notebook3_Xarray_Cupy_HighLevel
-   source/Notebook4_Xarray_Cupy_ApplyUfunc
+   source/cupy-basics
+   source/introduction
+   source/basic-computations
+   source/high-level-api
+   source/apply-ufunc
+   source/real-example-1
 
 
 **Tutorials & Presentations**:
@@ -84,7 +83,4 @@ Documentation: Large parts of this documentations comes from [SciPy 2023 Xarray 
    :caption: API Reference
 
    api
-
-
-
 ```
