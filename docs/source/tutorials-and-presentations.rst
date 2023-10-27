@@ -9,7 +9,8 @@ Tutorials
 .. toctree::
     :maxdepth: 1
 
-    CuPy-Xarray Demo using NASA Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6) Data
+    demo
+
 
 .. grid:: 1 2 2 2
     :gutter: 2
@@ -17,7 +18,9 @@ Tutorials
 
     .. grid-item-card::
        :text-align: center
-       :link: source/Notebook5_Xarray_Cupy_Example.html
+       :link: Notebook5_Xarray_Cupy_Example.html
+
+       CuPy-Xarray Demo using NASA Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6) Data
 
        +++
        CuPy-Xarray Demo
