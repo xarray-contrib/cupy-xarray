@@ -12,7 +12,7 @@
 
 ## Overview
 
-CuPy-Xarray is a Python library that leverages CuPy, a GPU array library, and Xarray, a library for multi-dimensional labeled array computations, to enable fast and efficient data processing on GPUs. By combining the capabilities of CuPy and Xarray, CuPy-Xarray provides a convenient interface for performing accelerated computations and analysis on large multidimensional datasets.
+CuPy-Xarray is a Python library that leverages [CuPy](https://cupy.dev/), a GPU array library, and [Xarray](https://docs.xarray.dev/en/stable/), a library for multi-dimensional labeled array computations, to enable fast and efficient data processing on GPUs. By combining the capabilities of CuPy and Xarray, CuPy-Xarray provides a convenient interface for performing accelerated computations and analysis on large multidimensional datasets.
 
 ## Installation
 
@@ -39,7 +39,9 @@ pip install git+https://github.com/xarray-contrib/cupy-xarray.git
 
 ## Acknowledgements
 
-Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutorial](https://negin513.github.io/cupy-xarray-tutorials/README.html). The original notebook also adapts from the content in [this NCAR tutorial to GPUs](https://github.com/NCAR/GPU_workshop/tree/workshop/13_CuPyAndLegate), and uses it to illustrate cupy-xarray and working with cupy arrays and Xarray objects in general.
+Huge acknowledgements to @dcherian, @andersy005, @jacobtomlinson , ... for their contributions and work on this project.
+
+Documentation: Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutorial](https://negin513.github.io/cupy-xarray-tutorials/README.html). The original notebook also adapts from the content in [this NCAR tutorial to GPUs](https://github.com/NCAR/GPU_workshop/tree/workshop/13_CuPyAndLegate), and uses it to illustrate cupy-xarray and working with cupy arrays and Xarray objects in general.
 
 ## Contents
 
