@@ -18,7 +18,7 @@ CuPy-Xarray is a Python library that leverages CuPy, a GPU array library, and Xa
 
 CuPy-Xarray can be installed using `pip` or `conda`:
 
-From anaconda:
+From Conda Forge:
 
 ```bash
 
