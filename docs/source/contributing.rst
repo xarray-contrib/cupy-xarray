@@ -140,10 +140,10 @@ Contributing documentation
 We greatly appreciate documentation improvements. The docs are built from the docstrings
 in the code and the docs in the ``doc`` directory.
 
-To build the documentation, you will need to requirements listed in ``ci/requirements/doc.yml``.
+To build the documentation, you will need to requirements listed in ``ci/doc.yml``.
 You can create an environment for building the documentation using::
 
-    conda env create --file ci/requirements/docs.yml
+    conda env create --file ci/doc.yml
     conda activate cupy-xarray-docs
 
 You can then build the documentation using::
