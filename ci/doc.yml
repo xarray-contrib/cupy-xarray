@@ -5,9 +5,10 @@ dependencies:
   - pip
   - python=3.10
   - sphinx
+  - sphinx-design
   - sphinx-copybutton
-  - numpydoc
   - sphinx-autosummary-accessors
+  - numpydoc
   - ipython
   - ipykernel
   - ipywidgets
