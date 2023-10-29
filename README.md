@@ -1,10 +1,11 @@
 # cupy-xarray
 
+> [!IMPORTANT]
 > ⚠️ This project is looking for maintainers and contributors. Come help out!
 
-[![GitHub Workflow CI Status](https://img.shields.io/github/workflow/status/xarray-contrib/cupy-xarray/CI?logo=github&style=flat)](https://github.com/xarray-contrib/cupy-xarray/actions)
+![GitHub Workflow CI Status](https://img.shields.io/github/actions/workflow/status/xarray-contrib/cupy-xarray/pypi-release.yaml?style=flat)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/xarray-contrib/cupy-xarray/main.svg)](https://results.pre-commit.ci/latest/github/xarray-contrib/cupy-xarray/main)
-[![Documentation Status](https://readthedocs.org/projects/cupy-xarray/badge/?version=latest)](https://cupy-xarray.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/cupy-xarray/badge/?version=latest)](https://cupy-xarray.readthedocs.io)
 
 [![PyPI](https://img.shields.io/pypi/v/cupy-xarray.svg?style=flat)](https://pypi.org/project/cupy-xarray/)
 [![Conda-forge](https://img.shields.io/conda/vn/conda-forge/cupy-xarray.svg?style=flat)](https://anaconda.org/conda-forge/cupy-xarray)
