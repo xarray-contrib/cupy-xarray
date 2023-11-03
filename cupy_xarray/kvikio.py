@@ -20,6 +20,10 @@ except ImportError:
     has_kvikio = False
 
 
+#  TODO: minimum kvikio version for supporting consolidated
+#  TODO: minimum xarray version for ZarrArrayWrapper._array 2023.10.0?
+
+
 class DummyZarrArrayWrapper(ZarrArrayWrapper):
     def __init__(self, array: np.ndarray):
         assert isinstance(array, np.ndarray)
@@ -47,11 +51,12 @@ class EagerCupyZarrArrayWrapper(ZarrArrayWrapper):
     """Used to wrap dimension coordinates."""
 
     def __array__(self):
-        return self.datastore.zarr_group[self.variable_name][:].get()
+        return self._array[:].get()
 
     def get_array(self):
         # total hack: make a numpy array look like a Zarr array
-        return DummyZarrArrayWrapper(self.datastore.zarr_group[self.variable_name][:].get())
+        # this gets us through Xarray's backend layers
+        return DummyZarrArrayWrapper(self._array[:].get())
 
 
 class GDSZarrStore(ZarrStore):
@@ -83,9 +88,6 @@ class GDSZarrStore(ZarrStore):
             meta_array=cp.empty(()),
         )
         open_kwargs["storage_options"] = storage_options
-
-        # TODO: handle consolidated
-        assert not consolidated
 
         if chunk_store:
             open_kwargs["chunk_store"] = chunk_store
