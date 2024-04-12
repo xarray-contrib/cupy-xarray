@@ -1,14 +1,17 @@
 import cupy as cp
-from xarray import (
-    DataArray,
-    Dataset,
-    register_dataarray_accessor,
-    register_dataset_accessor,
-)
+from xarray import Dataset, register_dataarray_accessor, register_dataset_accessor
 from xarray.core.pycompat import DuckArrayModule
 
-dsk = DuckArrayModule("dask")
-dask_array_type = dsk.type
+dask_array_type = DuckArrayModule("dask").type
+pint_array_type = DuckArrayModule("pint").type
+
+
+def _get_datatype(data):
+    if isinstance(data, dask_array_type):
+        return isinstance(data._meta, cp.ndarray)
+    elif isinstance(data, pint_array_type):
+        return _get_datatype(data.magnitude)
+    return isinstance(data, cp.ndarray)
 
 
 @register_dataarray_accessor("cupy")
@@ -22,11 +25,9 @@ class CupyDataArrayAccessor:
         self.da = da
 
     @property
-    def is_cupy(self):
-        """bool: The underlying data is a cupy array."""
-        if isinstance(self.da.data, dask_array_type):
-            return isinstance(self.da.data._meta, cp.ndarray)
-        return isinstance(self.da.data, cp.ndarray)
+    def is_cupy(self) -> bool:
+        """True if the underlying data is a cupy array."""
+        return _get_datatype(self.da.data)
 
     def as_cupy(self):
         """
@@ -51,21 +52,7 @@ class CupyDataArrayAccessor:
         <class 'cupy.core.core.ndarray'>
 
         """
-        if isinstance(self.da.data, dask_array_type):
-            return DataArray(
-                data=self.da.data.map_blocks(cp.asarray),
-                coords=self.da.coords,
-                dims=self.da.dims,
-                name=self.da.name,
-                attrs=self.da.attrs,
-            )
-        return DataArray(
-            data=cp.asarray(self.da.data),
-            coords=self.da.coords,
-            dims=self.da.dims,
-            name=self.da.name,
-            attrs=self.da.attrs,
-        )
+        return self.da.copy(data=_as_cupy_data(self.da.data))
 
     def as_numpy(self):
         """
@@ -77,28 +64,36 @@ class CupyDataArrayAccessor:
             DataArray with underlying data cast to numpy.
 
         """
-        if self.is_cupy:
-            if isinstance(self.da.data, dask_array_type):
-                return DataArray(
-                    data=self.da.data.map_blocks(
-                        lambda block: block.get(), dtype=self.da.data._meta.dtype
-                    ),
-                    coords=self.da.coords,
-                    dims=self.da.dims,
-                    name=self.da.name,
-                    attrs=self.da.attrs,
-                )
-            return DataArray(
-                data=self.da.data.get(),
-                coords=self.da.coords,
-                dims=self.da.dims,
-                name=self.da.name,
-                attrs=self.da.attrs,
-            )
-        return self.da.as_numpy()
+        raise NotImplementedError("Please use .as_numpy DataArray method directly.")
 
     def get(self):
         return self.da.data.get()
+
+
+def _as_cupy_data(data):
+    if isinstance(data, dask_array_type):
+        return data.map_blocks(cp.asarray)
+    if isinstance(data, pint_array_type):
+        from pint import Quantity  # pylint: disable=import-outside-toplevel
+
+        return Quantity(
+            _as_cupy_data(data.magnitude),
+            units=data.units,
+        )
+    return cp.asarray(data)
+
+
+def _as_numpy_data(data):
+    if isinstance(data, dask_array_type):
+        return data.map_blocks(lambda block: block.get(), dtype=data._meta.dtype)
+    if isinstance(data, pint_array_type):
+        from pint import Quantity  # pylint: disable=import-outside-toplevel
+
+        return Quantity(
+            _as_numpy_data(data.magnitude),
+            units=data.units,
+        )
+    return data.get() if isinstance(data, cp.ndarray) else data
 
 
 @register_dataset_accessor("cupy")
@@ -112,12 +107,24 @@ class CupyDatasetAccessor:
         self.ds = ds
 
     @property
-    def is_cupy(self):
+    def has_cupy(self) -> bool:
+        """True if any data variable contains a cupy array."""
+        return any([da.cupy.is_cupy for da in self.ds.data_vars.values()])
+
+    @property
+    def is_cupy(self) -> bool:
+        """True if all data variables contain cupy arrays."""
         return all([da.cupy.is_cupy for da in self.ds.data_vars.values()])
 
     def as_cupy(self):
-        data_vars = {var: da.as_cupy() for var, da in self.ds.data_vars.items()}
-        return Dataset(data_vars=data_vars, coords=self.ds.coords, attrs=self.ds.attrs)
+        if not self.is_cupy:
+            data_vars = {var: da.as_cupy() for var, da in self.ds.data_vars.items()}
+            return Dataset(
+                data_vars=data_vars,
+                coords=self.ds.coords,
+                attrs=self.ds.attrs,
+            )
+        return self.ds
 
     def as_numpy(self):
         if self.is_cupy:
@@ -127,8 +134,7 @@ class CupyDatasetAccessor:
                 coords=self.ds.coords,
                 attrs=self.ds.attrs,
             )
-        else:
-            return self.ds.as_numpy()
+        return self.ds
 
 
 # Attach the `as_cupy` methods to the top level `Dataset` and `Dataarray` objects.

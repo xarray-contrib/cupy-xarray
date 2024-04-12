@@ -1,66 +1,63 @@
+"""Tests for cupy-xarray accessors"""
+import cupy as cp
 import numpy as np
 import pytest
 import xarray as xr
-from xarray.core.pycompat import dask_array_type
+from xarray.tests import requires_dask, requires_pint
 
-import cupy_xarray  # noqa: F401
+import cupy_xarray  # noqa: F401 pylint:disable=unused-import
 
-
-@pytest.fixture
-def tutorial_ds_air():
-    return xr.tutorial.load_dataset("air_temperature")
+da = xr.DataArray(np.random.rand(2, 3), attrs={"units": "candle"})
+ds = xr.Dataset({"a": da})
 
 
-@pytest.fixture
-def tutorial_da_air(tutorial_ds_air):
-    return tutorial_ds_air.air
+@pytest.mark.parametrize("obj", [da, ds])
+def test_numpy(obj):
+    """Test is_cupy property in cupy xarray accessor"""
 
-
-@pytest.fixture
-def tutorial_ds_air_dask():
-    return xr.tutorial.open_dataset("air_temperature", chunks={"lat": 25, "lon": 25, "time": -1})
-
-
-@pytest.fixture
-def tutorial_da_air_dask(tutorial_ds_air_dask):
-    return tutorial_ds_air_dask.air
-
-
-def test_data_set_accessor(tutorial_ds_air):
-    ds = tutorial_ds_air
-    assert hasattr(ds, "cupy")
-    assert not ds.cupy.is_cupy
-
-    ds = ds.as_cupy()
-    assert ds.cupy.is_cupy
-
-    ds = ds.cupy.as_numpy()
-    assert not ds.cupy.is_cupy
-
-
-def test_data_array_accessor(tutorial_da_air):
-    da = tutorial_da_air
-    assert hasattr(da, "cupy")
     assert not da.cupy.is_cupy
+    cpda = da.cupy.as_cupy()
+    assert cpda.cupy.is_cupy
 
-    da = da.as_cupy()
-    assert da.cupy.is_cupy
-
-    garr = da.cupy.get()
-    assert isinstance(garr, np.ndarray)
-
-    da = da.cupy.as_numpy()
-    assert not da.cupy.is_cupy
+    as_numpy = cpda.as_numpy()
+    assert not as_numpy.cupy.is_cupy
+    if isinstance(as_numpy, xr.DataArray):
+        assert isinstance(as_numpy.data, np.ndarray)
 
 
-def test_data_array_accessor_dask(tutorial_da_air_dask):
-    da = tutorial_da_air_dask
-    assert hasattr(da, "cupy")
-    assert not da.cupy.is_cupy
+@requires_dask
+@pytest.mark.parametrize("obj", [da, ds])
+def test_dask(obj):
+    """Test is_cupy property in cupy xarray accessor"""
+    as_dask = obj.chunk()
+    assert not as_dask.cupy.is_cupy
+    cpda = as_dask.cupy.as_cupy()
+    assert cpda.cupy.is_cupy
 
-    da = da.as_cupy()
-    assert da.cupy.is_cupy
-    assert isinstance(da.data, dask_array_type)
+    if isinstance(cpda, xr.DataArray):
+        assert isinstance(cpda.data._meta, cp.ndarray)
 
-    da = da.cupy.as_numpy()
-    assert not da.cupy.is_cupy
+
+@requires_pint
+@pytest.mark.parametrize("obj", [da, ds])
+def test_pint(obj):
+    import pint
+    import pint_xarray  # noqa
+
+    as_pint = obj.pint.quantify()
+
+    assert not as_pint.cupy.is_cupy
+    cpda = as_pint.cupy.as_cupy()
+    if isinstance(cpda, xr.DataArray):
+        assert isinstance(cpda.data, pint.Quantity)
+    assert cpda.cupy.is_cupy
+
+    as_dask = as_pint.chunk()
+    if isinstance(as_dask, xr.DataArray):
+        assert isinstance(as_dask.data, pint.Quantity)
+        assert isinstance(as_dask.data.magnitude._meta, np.ndarray)
+    assert not as_dask.cupy.is_cupy
+    cpda = as_dask.cupy.as_cupy()
+    assert cpda.cupy.is_cupy
+    if isinstance(cpda, xr.DataArray):
+        assert isinstance(cpda.data._meta, cp.ndarray)
