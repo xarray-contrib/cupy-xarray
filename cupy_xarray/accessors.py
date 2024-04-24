@@ -5,7 +5,7 @@ from xarray import (
     register_dataarray_accessor,
     register_dataset_accessor,
 )
-from xarray.core.pycompat import DuckArrayModule
+from xarray.namedarray.pycompat import DuckArrayModule
 
 dsk = DuckArrayModule("dask")
 dask_array_type = dsk.type
