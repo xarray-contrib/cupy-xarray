@@ -1,2 +1,2 @@
 cupy
-xarray>=2024-02-0
+xarray>=2024.02.0
