@@ -6,8 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import cupy_xarray
 import sphinx_autosummary_accessors
+
+import cupy_xarray
 
 project = "cupy-xarray"
 copyright = "2023, cupy-xarray developers"
