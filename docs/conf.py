@@ -8,7 +8,7 @@
 
 import sphinx_autosummary_accessors
 
-import cupy_xarray
+import cupy_xarray  # noqa: F401
 
 project = "cupy-xarray"
 copyright = "2023, cupy-xarray developers"
