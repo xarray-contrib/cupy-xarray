@@ -2,6 +2,7 @@ name: cupy-xarray-doc
 channels:
   - conda-forge
 dependencies:
+  - cupy-core
   - pip
   - python=3.10
   - sphinx
@@ -14,5 +15,4 @@ dependencies:
   - ipywidgets
   - furo
   - myst-nb
-  # - cupy
-  # - xarray
+  - xarray
