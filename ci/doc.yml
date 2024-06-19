@@ -16,5 +16,5 @@ dependencies:
   - myst-nb
   - xarray
   - pip:
-    # relative to this file. Needs to be editable to be accepted.
-    - --editable ..
+      # relative to this file. Needs to be editable to be accepted.
+      - --editable ..
