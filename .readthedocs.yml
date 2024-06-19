@@ -10,8 +10,8 @@ build:
 conda:
   environment: ci/doc.yml
 python:
-   install:
-   - method: pip
-     path: .
+  install:
+    - method: pip
+      path: .
 
 formats: []
