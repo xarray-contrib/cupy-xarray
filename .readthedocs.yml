@@ -9,9 +9,5 @@ build:
 # Optionally set the version of Python and requirements required to build your docs
 conda:
   environment: ci/doc.yml
-python:
-  install:
-    - method: pip
-      path: .
 
 formats: []

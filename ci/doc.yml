@@ -15,3 +15,6 @@ dependencies:
   - furo
   - myst-nb
   - xarray
+  - pip:
+    # relative to this file. Needs to be editable to be accepted.
+    - --editable ..

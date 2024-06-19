@@ -145,7 +145,6 @@ You can create an environment for building the documentation using::
 
     conda env create --file ci/doc.yml
     conda activate cupy-xarray-doc
-    pip install --editable .
 
 You can then build the documentation using::
 
