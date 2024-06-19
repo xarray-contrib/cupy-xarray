@@ -9,7 +9,6 @@ dependencies:
   - sphinx-design
   - sphinx-copybutton
   - sphinx-autosummary-accessors
-  - numpydoc
   - ipython
   - ipykernel
   - ipywidgets
