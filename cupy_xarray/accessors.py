@@ -23,7 +23,14 @@ class CupyDataArrayAccessor:
 
     @property
     def is_cupy(self):
-        """bool: The underlying data is a cupy array."""
+        """
+        Check to see if the underlying array is a cupy array.
+
+        Returns
+        -------
+        is_cupy: bool
+            Whether the underlying data is a cupy array.
+        """
         if isinstance(self.da.data, dask_array_type):
             return isinstance(self.da.data._meta, cp.ndarray)
         return isinstance(self.da.data, cp.ndarray)
@@ -75,7 +82,6 @@ class CupyDataArrayAccessor:
         -------
         da: DataArray
             DataArray with underlying data cast to numpy.
-
         """
         if self.is_cupy:
             if isinstance(self.da.data, dask_array_type):
@@ -113,13 +119,27 @@ class CupyDatasetAccessor:
 
     @property
     def is_cupy(self):
+        """
+        Check to see if the underlying array is a cupy array.
+
+        Returns
+        -------
+        is_cupy: bool
+            Whether the underlying data is a cupy array.
+        """
         return all([da.cupy.is_cupy for da in self.ds.data_vars.values()])
 
     def as_cupy(self):
+        """
+        Convert the Dataset's underlying array type to cupy.
+        """
         data_vars = {var: da.as_cupy() for var, da in self.ds.data_vars.items()}
         return Dataset(data_vars=data_vars, coords=self.ds.coords, attrs=self.ds.attrs)
 
     def as_numpy(self):
+        """
+        Converts the Dataset's underlying array type from cupy to numpy.
+        """
         if self.is_cupy:
             data_vars = {var: da.cupy.as_numpy() for var, da in self.ds.data_vars.items()}
             return Dataset(
