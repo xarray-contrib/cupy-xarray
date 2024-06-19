@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-# import cupy_xarray
+import cupy_xarray
 import sphinx_autosummary_accessors
 
 project = "cupy-xarray"
@@ -25,7 +25,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.extlinks",
     "numpydoc",
-    # "sphinx_autosummary_accessors",
+    "sphinx_autosummary_accessors",
     "IPython.sphinxext.ipython_directive",
     "sphinx.ext.napoleon",
     "myst_nb",
@@ -41,7 +41,7 @@ extlinks = {
 }
 
 templates_path = ["_templates", sphinx_autosummary_accessors.templates_path]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "api.rst"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
