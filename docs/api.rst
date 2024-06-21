@@ -51,4 +51,3 @@ Methods
 
     Dataset.cupy.as_cupy
     Dataset.cupy.as_numpy
-    Dataset.cupy.get

@@ -2,17 +2,19 @@ name: cupy-xarray-doc
 channels:
   - conda-forge
 dependencies:
+  - cupy-core
   - pip
   - python=3.10
   - sphinx
   - sphinx-design
   - sphinx-copybutton
   - sphinx-autosummary-accessors
-  - numpydoc
   - ipython
   - ipykernel
   - ipywidgets
   - furo
   - myst-nb
-  # - cupy
-  # - xarray
+  - xarray
+  - pip:
+      # relative to this file. Needs to be editable to be accepted.
+      - --editable ..
