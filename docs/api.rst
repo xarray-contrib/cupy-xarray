@@ -51,3 +51,16 @@ Methods
 
     Dataset.cupy.as_cupy
     Dataset.cupy.as_numpy
+
+
+KvikIO engine
+-------------
+
+.. currentmodule:: cupy_xarray
+
+.. automodule:: cupy_xarray.kvikio
+
+.. autosummary::
+   :toctree: generated/
+
+   KvikioBackendEntrypoint

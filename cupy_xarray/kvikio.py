@@ -1,9 +1,13 @@
+"""
+:doc:`kvikIO <kvikio:index>` backend for xarray to read Zarr stores directly into CuPy
+arrays in GPU memory.
+"""
+
 import os
 import warnings
 
 import cupy as cp
 import numpy as np
-import zarr
 from xarray import Variable
 from xarray.backends import zarr as zarr_backend
 from xarray.backends.common import _normalize_path  # TODO: can this be public
@@ -14,6 +18,7 @@ from xarray.core.utils import close_on_error  # TODO: can this be public.
 
 try:
     import kvikio.zarr
+    import zarr
 
     has_kvikio = True
 except ImportError:
@@ -165,9 +170,16 @@ class GDSZarrStore(ZarrStore):
 
 
 class KvikioBackendEntrypoint(ZarrBackendEntrypoint):
+    """
+    Xarray backend to read Zarr stores using 'kvikio' engine.
+
+    For more information about the underlying library, visit
+    :doc:`kvikIO's Zarr page<kvikio:zarr>`.
+    """
+
     available = has_kvikio
     description = "Open zarr files (.zarr) using Kvikio"
-    url = "https://docs.rapids.ai/api/kvikio/nightly/api.html#zarr"
+    url = "https://docs.rapids.ai/api/kvikio/stable/api/#zarr"
 
     # disabled by default
     # We need to provide this because of the subclassing from
