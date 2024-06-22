@@ -33,8 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements_test.txt ]; then pip install -r requirements_test.txt; fi
-          python -m pip install .
+          CUPY_NO_CUDA=true python -m pip install .[test]
 
       # Run the unit tests
       - name: Test with pytest
