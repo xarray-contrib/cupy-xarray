@@ -39,6 +39,7 @@ jobs:
             cupy-core
             dask
             pip
+            pooch
             python=${{ matrix.python-version }}
             pytest
             xarray

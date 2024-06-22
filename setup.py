@@ -22,5 +22,5 @@ setuptools.setup(
     ],
     python_requires=">=3.7",
     install_requires=requirements,
-    extras_require={"test": ["dask", "pytest"]},
+    extras_require={"test": ["dask", "pooch", "pytest"]},
 )
