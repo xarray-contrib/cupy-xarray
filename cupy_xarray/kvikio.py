@@ -152,7 +152,7 @@ class GDSZarrStore(ZarrStore):
             array_wrapper = EagerCupyZarrArrayWrapper
         else:
             array_wrapper = CupyZarrArrayWrapper
-        data = indexing.LazilyIndexedArray(array_wrapper(name, self))
+        data = indexing.LazilyIndexedArray(array_wrapper(zarr_array))
 
         attributes = dict(attributes)
         encoding = {
