@@ -38,6 +38,7 @@ jobs:
           create-args: >-
             cupy-core
             dask
+            netcdf4
             pip
             pooch
             python=${{ matrix.python-version }}
