@@ -55,7 +55,7 @@ class CupyDataArrayAccessor:
         >>> da = xr.tutorial.load_dataset("air_temperature").air
         >>> gda = da.cupy.as_cupy()
         >>> type(gda.data)
-        <class 'cupy.core.core.ndarray'>
+        <class 'cupy.ndarray'>
 
         """
         if isinstance(self.da.data, dask_array_type):
