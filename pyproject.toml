@@ -29,6 +29,15 @@ test = [
 line-length = 100
 target-version = ['py38']
 
+[tool.isort]
+profile = "black"
+skip = [
+    "docs/source/conf.py",
+    "setup.py",
+    "versioneer.py",
+    "cupy_xarray/_version.py",
+]
+
 [tool.versioneer]
 VCS = "git"
 style = "pep440"
