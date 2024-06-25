@@ -127,7 +127,7 @@ class CupyDatasetAccessor:
         is_cupy: bool
             Whether the underlying data is a cupy array.
         """
-        return all([da.cupy.is_cupy for da in self.ds.data_vars.values()])
+        return all(da.cupy.is_cupy for da in self.ds.data_vars.values())
 
     def as_cupy(self):
         """
