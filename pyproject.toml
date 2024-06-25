@@ -1,3 +1,19 @@
-[tool.black]
-line-length = 100
-target-version = ['py38']
+[tool.ruff]
+line-length = 100  # E501 (line-too-long)
+exclude = [
+    "docs",
+    "versioneer.py",
+    "cupy_xarray/_version.py",
+]
+
+[tool.ruff.lint]
+select = [
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "C90",  # mccabe
+    "E",    # pycodestyle
+    "F",    # pyflakes
+    "I",    # isort
+    "SIM",  # flake8-simplify
+    "W",    # pycodestyle warnings
+]
