@@ -5,10 +5,13 @@ from xarray import (
     register_dataarray_accessor,
     register_dataset_accessor,
 )
-from xarray.namedarray.pycompat import DuckArrayModule
 
-dsk = DuckArrayModule("dask")
-dask_array_type = dsk.type
+try:
+    import dask.array
+
+    dask_array_type = dask.array.Array
+except ImportError:
+    dask_array_type = None
 
 
 @register_dataarray_accessor("cupy")
