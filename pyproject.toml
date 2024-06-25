@@ -1,3 +1,32 @@
+[build-system]
+requires = ["setuptools", "versioneer[toml]"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cupy-xarray"
+description = "Interface for using cupy in xarray, providing convenience accessors."
+authors = [{name = "cupy-xarray developers"}]
+license = {text = "Apache License"}
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version"]
+dependencies = [
+    "cupy",
+    "xarray>=2024.02.0",
+]
+
 [tool.black]
 line-length = 100
 target-version = ['py38']
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440"
+versionfile_source = "cupy_xarray/_version.py"
+versionfile_build = "cupy_xarray/_version.py"
+tag_prefix = ""
+parentdir_prefix = ""
