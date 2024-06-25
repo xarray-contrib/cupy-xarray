@@ -19,6 +19,12 @@ dependencies = [
     "xarray>=2024.02.0",
 ]
 
+[project.optional-dependencies]
+test = [
+    "dask",
+    "pytest",
+]
+
 [tool.black]
 line-length = 100
 target-version = ['py38']
