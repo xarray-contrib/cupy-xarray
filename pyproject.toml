@@ -17,5 +17,6 @@ select = [
     "C90",  # mccabe
     "E",    # pycodestyle
     "F",    # pyflakes
+    "SIM",  # flake8-simplify
     "W",    # pycodestyle warnings
 ]
