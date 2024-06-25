@@ -1,7 +1,3 @@
-[tool.black]
-line-length = 100
-target-version = ['py38']
-
 [tool.ruff]
 line-length = 100  # E501 (line-too-long)
 exclude = [
