@@ -38,10 +38,14 @@ repos:
     hooks:
       - id: blackdoc
 
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.0.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.10
     hooks:
-      - id: flake8
+      - id: ruff
+        types_or: [python, pyi, jupyter]
+        args: [--fix]
+      - id: ruff-format
+        types_or: [python, pyi, jupyter]
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.13.2
