@@ -1,12 +1,15 @@
 import numpy as np
 import pytest
 import xarray as xr
-from xarray.namedarray.pycompat import DuckArrayModule
 
 import cupy_xarray  # noqa: F401
 
-dsk = DuckArrayModule("dask")
-dask_array_type = dsk.type
+try:
+    import dask.array
+
+    dask_array_type = dask.array.Array
+except ImportError:
+    dask_array_type = None
 
 
 @pytest.fixture
