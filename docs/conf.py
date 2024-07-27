@@ -11,9 +11,9 @@ import sphinx_autosummary_accessors
 import cupy_xarray  # noqa: F401
 
 project = "cupy-xarray"
-copyright = "2023, cupy-xarray developers"
+copyright = "2020-2024, cupy-xarray developers"
 author = "cupy-xarray developers"
-release = "v0.1"
+release = "v0.1.4"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
