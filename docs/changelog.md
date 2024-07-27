@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 0.1.4 - 2023-07-27
+## Version 0.1.4 - 2024-07-27
 
 This release brings several documentation improvements at
 <https://cupy-xarray.readthedocs.io> with a new User Guide, Tutorials and Presentations,
