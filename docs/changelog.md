@@ -1,5 +1,31 @@
 # Changelog
 
+## Version 0.1.4 - 2023-07-27
+
+This release brings several documentation improvements at
+<https://cupy-xarray.readthedocs.io> with a new User Guide, Tutorials and Presentations,
+Contributing Guide and API reference. It also fixes a `No module named
+'xarray.core.pycompat'` bug, and will require a minimum version of `xarray>=2024.02.0`.
+
+### What's Changed
+
+* Documentation Updates 📖 ([#35](https://github.com/xarray-contrib/cupy-xarray/pull/35))
+* Update accessors.py ([#42](https://github.com/xarray-contrib/cupy-xarray/pull/42))
+* Enable API reference docs to show accessor methods ([#44](https://github.com/xarray-contrib/cupy-xarray/pull/44))
+* Migrate flake8, isort, black rules to ruff ([#49](https://github.com/xarray-contrib/cupy-xarray/pull/49))
+* Fix broken doctest and tests on accessors ([#46](https://github.com/xarray-contrib/cupy-xarray/pull/46))
+* Migrate from setup.cfg to pyproject.toml ([#48](https://github.com/xarray-contrib/cupy-xarray/pull/48))
+
+### Contributors
+
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Negin Sobhani](https://github.com/negin513)
+* [Sai Shashank](https://github.com/saishashank85)
+
+**Full Changelog**: <https://github.com/xarray-contrib/cupy-xarray/compare/0.1.3...0.1.4>
+
+---
+
 ## Version 0.1.3 - 2023-02-22
 
 ### What's Changed
