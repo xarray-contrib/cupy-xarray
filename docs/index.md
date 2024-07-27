@@ -76,11 +76,12 @@ Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutoria
    source/contributing
 
 
-**API Reference**:
+**Reference**:
 
 .. toctree::
    :maxdepth: 1
-   :caption: API Reference
+   :caption: Reference
 
    api
+   changelog
 ```
