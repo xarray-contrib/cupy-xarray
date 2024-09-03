@@ -9,9 +9,9 @@ from xarray import (
 try:
     import dask.array
 
-    dask_array_type = dask.array.Array
+    dask_array_type = (dask.array.Array,)
 except ImportError:
-    dask_array_type = None
+    dask_array_type = ()
 
 
 @register_dataarray_accessor("cupy")
@@ -34,7 +34,7 @@ class CupyDataArrayAccessor:
         is_cupy: bool
             Whether the underlying data is a cupy array.
         """
-        if dask_array_type is not None and isinstance(self.da.data, dask_array_type):
+        if isinstance(self.da.data, dask_array_type):
             return isinstance(self.da.data._meta, cp.ndarray)
         return isinstance(self.da.data, cp.ndarray)
 
@@ -61,7 +61,7 @@ class CupyDataArrayAccessor:
         <class 'cupy.ndarray'>
 
         """
-        if dask_array_type is not None and isinstance(self.da.data, dask_array_type):
+        if isinstance(self.da.data, dask_array_type):
             return DataArray(
                 data=self.da.data.map_blocks(cp.asarray),
                 coords=self.da.coords,
@@ -87,7 +87,7 @@ class CupyDataArrayAccessor:
             DataArray with underlying data cast to numpy.
         """
         if self.is_cupy:
-            if dask_array_type is not None and isinstance(self.da.data, dask_array_type):
+            if isinstance(self.da.data, dask_array_type):
                 return DataArray(
                     data=self.da.data.map_blocks(
                         lambda block: block.get(), dtype=self.da.data._meta.dtype
