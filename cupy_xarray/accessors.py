@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING, Any
+
 import cupy as cp
 from xarray import (
     DataArray,
