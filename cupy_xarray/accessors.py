@@ -10,8 +10,8 @@ from xarray import (
 
 if TYPE_CHECKING:
     DuckArrayTypes = tuple[type[Any], ...]
+    dask_array_type: DuckArrayTypes
 
-dask_array_type: DuckArrayTypes
 try:
     import dask.array
 
