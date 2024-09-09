@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING, Any
+
 import cupy as cp
 from xarray import (
     DataArray,
@@ -6,12 +8,16 @@ from xarray import (
     register_dataset_accessor,
 )
 
+if TYPE_CHECKING:
+    DuckArrayTypes = tuple[type[Any], ...]
+    dask_array_type: DuckArrayTypes
+
 try:
     import dask.array
 
-    dask_array_type = dask.array.Array
+    dask_array_type = (dask.array.Array,)
 except ImportError:
-    dask_array_type = None
+    dask_array_type = ()
 
 
 @register_dataarray_accessor("cupy")
