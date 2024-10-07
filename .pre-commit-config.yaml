@@ -9,7 +9,7 @@ exclude: |
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -21,7 +21,7 @@ repos:
       - id: mixed-line-ending
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.16.0
+    rev: v3.17.0
     hooks:
       - id: pyupgrade
         args:
@@ -33,7 +33,7 @@ repos:
       - id: blackdoc
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.5.0
+    rev: v0.6.9
     hooks:
       - id: ruff
         types_or: [python, pyi, jupyter]
