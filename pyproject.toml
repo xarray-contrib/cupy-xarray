@@ -15,7 +15,6 @@ classifiers = [
 ]
 dynamic = ["version"]
 dependencies = [
-    "cupy",
     "xarray>=2024.02.0",
 ]
 
@@ -24,6 +23,16 @@ test = [
     "dask",
     "pytest",
 ]
+source = [
+    "cupy"
+]
+cuda12 = [
+    "cupy-cuda12x",
+]
+cuda11 = [
+    "cupy-cuda11x",
+]
+
 
 [tool.ruff]
 line-length = 100  # E501 (line-too-long)
