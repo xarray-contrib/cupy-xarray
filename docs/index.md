@@ -43,8 +43,8 @@ Install cupy with extras:
 
 ```console
 pip install cupy-xarray["source"] # will install the cupy package, which will build cupy from source
-pip install cupy-xarray["cuda11"] # will install the prebuild cupy-cuda11x package
-pip install cupy-xarray["cuda12"] # will install the prebuild cupy-cuda12x package
+pip install cupy-xarray["cuda11"] # will install the prebuilt cupy-cuda11x package
+pip install cupy-xarray["cuda12"] # will install the prebuilt cupy-cuda12x package
 ```
 
 ## Acknowledgements
