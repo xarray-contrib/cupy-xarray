@@ -7,7 +7,7 @@ except ImportError as e:
     warnings.warn(
         "Cupy is not installed. cupy-xarray expects cupy to be manually installed. Please install "
         "cupy either by following the instructions at https://docs.cupy.dev/en/stable/install.html "
-        "or by isntalling cupy-xaray with extras, e.g. `pip install cupy-xarray['source']`. More "
+        "or by installing cupy-xaray with extras, e.g. `pip install cupy-xarray['source']`. More "
         "information can be found in the Readme or at the cupy-xarray documentation.",
         ImportWarning,
         stacklevel=2,
