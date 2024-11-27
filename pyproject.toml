@@ -15,7 +15,6 @@ classifiers = [
 ]
 dynamic = ["version"]
 dependencies = [
-    "cupy",
     "xarray>=2024.02.0",
 ]
 

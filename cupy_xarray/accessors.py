@@ -1,6 +1,16 @@
+import warnings
 from typing import TYPE_CHECKING, Any
 
-import cupy as cp
+try:
+    import cupy as cp
+except ImportError as e:
+    warnings.warn(
+        "Cupy is not installed. cupy-xarray expects cupy to be manually installed. Please install "
+        "cupy by following the instructions at https://docs.cupy.dev/en/stable/install.html.",
+        ImportWarning,
+        stacklevel=2,
+    )
+    raise e
 from xarray import (
     DataArray,
     Dataset,

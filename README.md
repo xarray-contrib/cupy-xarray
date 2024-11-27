@@ -16,6 +16,8 @@ Interface for using cupy in xarray, providing convenience accessors.
 
 ## Installation
 
+> `cupy-xarray` will use an existing cupy installation, hence cupy needs to be installed manually! Please follow cupy's install instructions at <https://docs.cupy.dev/en/stable/install.html>.
+
 From anaconda:
 
 ```console
