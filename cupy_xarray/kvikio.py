@@ -85,13 +85,13 @@ class GDSZarrStore(ZarrStore):
         if isinstance(store, os.PathLike):
             store = os.fspath(store)
 
-        open_kwargs = dict(
-            mode=mode,
-            synchronizer=synchronizer,
-            path=group,
+        open_kwargs = {
+            "mode": mode,
+            "synchronizer": synchronizer,
+            "path": group,
             ########## NEW STUFF
-            meta_array=cp.empty(()),
-        )
+            "meta_array": cp.empty(()),
+        }
         open_kwargs["storage_options"] = storage_options
 
         if chunk_store:

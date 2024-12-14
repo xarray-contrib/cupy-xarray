@@ -2,13 +2,13 @@ import cupy as cp
 import numpy as np
 import pytest
 import xarray as xr
+from xarray.core.indexing import ExplicitlyIndexedNDArrayMixin
 
 kvikio = pytest.importorskip("kvikio")
 zarr = pytest.importorskip("zarr")
 
 import kvikio.zarr  # noqa
 import xarray.core.indexing  # noqa
-from xarray.core.indexing import ExplicitlyIndexedNDArrayMixin
 
 
 @pytest.fixture
