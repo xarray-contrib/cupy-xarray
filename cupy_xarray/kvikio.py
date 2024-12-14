@@ -163,7 +163,7 @@ class GDSZarrStore(ZarrStore):
         }
         # _FillValue needs to be in attributes, not encoding, so it will get
         # picked up by decode_cf
-        if getattr(zarr_array, "fill_value") is not None:
+        if zarr_array.fill_value is not None:
             attributes["_FillValue"] = zarr_array.fill_value
 
         return Variable(dimensions, data, attributes, encoding)
