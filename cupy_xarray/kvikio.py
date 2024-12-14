@@ -58,7 +58,7 @@ class EagerCupyZarrArrayWrapper(ZarrArrayWrapper):
     def __array__(self):
         return self._array[:].get()
 
-    def get_array(self):
+    def get_duck_array(self):
         # total hack: make a numpy array look like a Zarr array
         # this gets us through Xarray's backend layers
         return DummyZarrArrayWrapper(self._array[:].get())
