@@ -1,14 +1,33 @@
-import cupy as cp
+import warnings
+from typing import TYPE_CHECKING, Any
+
+try:
+    import cupy as cp
+except ImportError as e:
+    warnings.warn(
+        "Cupy is not installed. cupy-xarray expects cupy to be manually installed. Please install "
+        "cupy by following the instructions at https://docs.cupy.dev/en/stable/install.html.",
+        ImportWarning,
+        stacklevel=2,
+    )
+    raise e
 from xarray import (
     DataArray,
     Dataset,
     register_dataarray_accessor,
     register_dataset_accessor,
 )
-from xarray.namedarray.pycompat import DuckArrayModule
 
-dsk = DuckArrayModule("dask")
-dask_array_type = dsk.type
+if TYPE_CHECKING:
+    DuckArrayTypes = tuple[type[Any], ...]
+    dask_array_type: DuckArrayTypes
+
+try:
+    import dask.array
+
+    dask_array_type = (dask.array.Array,)
+except ImportError:
+    dask_array_type = ()
 
 
 @register_dataarray_accessor("cupy")
@@ -55,7 +74,7 @@ class CupyDataArrayAccessor:
         >>> da = xr.tutorial.load_dataset("air_temperature").air
         >>> gda = da.cupy.as_cupy()
         >>> type(gda.data)
-        <class 'cupy.core.core.ndarray'>
+        <class 'cupy.ndarray'>
 
         """
         if isinstance(self.da.data, dask_array_type):
@@ -127,7 +146,7 @@ class CupyDatasetAccessor:
         is_cupy: bool
             Whether the underlying data is a cupy array.
         """
-        return all([da.cupy.is_cupy for da in self.ds.data_vars.values()])
+        return all(da.cupy.is_cupy for da in self.ds.data_vars.values())
 
     def as_cupy(self):
         """

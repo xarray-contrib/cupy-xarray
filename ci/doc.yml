@@ -12,7 +12,7 @@ dependencies:
   - ipython
   - ipykernel
   - ipywidgets
-  - furo
+  - furo>=2024.8.6
   - myst-nb
   - xarray
   - zarr

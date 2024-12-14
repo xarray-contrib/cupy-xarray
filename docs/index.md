@@ -16,6 +16,8 @@ CuPy-Xarray is a Python library that leverages [CuPy](https://cupy.dev/), a GPU 
 
 ## Installation
 
+> `cupy-xarray` will use an existing cupy installation, hence cupy needs to be installed manually! Please follow cupy's install instructions at <https://docs.cupy.dev/en/stable/install.html>.
+
 CuPy-Xarray can be installed using `pip` or `conda`:
 
 From Conda Forge:
@@ -77,11 +79,12 @@ Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutoria
    source/contributing
 
 
-**API Reference**:
+**Reference**:
 
 .. toctree::
    :maxdepth: 1
-   :caption: API Reference
+   :caption: Reference
 
    api
+   changelog
 ```

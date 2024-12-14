@@ -132,7 +132,7 @@ Running the test suite
 *cupy-xarray* uses the `pytest <https://docs.pytest.org/en/latest/contents.html>`_
 framework for testing. You can run the test suite using::
 
-    pytest cupy-xarray
+    pytest --doctest-modules cupy_xarray
 
 Contributing documentation
 ==========================
