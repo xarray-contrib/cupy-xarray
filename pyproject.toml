@@ -24,6 +24,9 @@ test = [
     "pytest",
 ]
 
+[project.entry-points."xarray.backends"]
+kvikio = "cupy_xarray.kvikio:KvikioBackendEntrypoint"
+
 [tool.ruff]
 line-length = 100  # E501 (line-too-long)
 exclude = [
