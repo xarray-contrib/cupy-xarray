@@ -148,9 +148,7 @@ class GDSZarrStore(ZarrStore):
         # But these should be small-ish arrays
         # TODO: can we tell GDSStore to load as numpy array directly
         # not cupy array?
-        array_wrapper = (
-            EagerCupyZarrArrayWrapper if name in dimensions else CupyZarrArrayWrapper
-        )
+        array_wrapper = EagerCupyZarrArrayWrapper if name in dimensions else CupyZarrArrayWrapper
         data = indexing.LazilyIndexedArray(array_wrapper(zarr_array))
 
         attributes = dict(attributes)
