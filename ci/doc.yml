@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - cupy-core
+  - rapidsai-nightly::kvikio>=25.04.00a
   - pip
   - python=3.10
   - sphinx
@@ -15,7 +16,7 @@ dependencies:
   - furo>=2024.8.6
   - myst-nb
   - xarray
-  - zarr
+  - zarr>=3.0.3
   - pip:
       # relative to this file. Needs to be editable to be accepted.
       - --editable ..
