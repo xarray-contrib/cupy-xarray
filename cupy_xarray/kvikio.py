@@ -7,13 +7,9 @@ import os
 import warnings
 
 import cupy as cp
-import numpy as np
-from xarray import Variable
-from xarray.backends import zarr as zarr_backend
 from xarray.backends.common import _normalize_path  # TODO: can this be public
 from xarray.backends.store import StoreBackendEntrypoint
-from xarray.backends.zarr import ZarrArrayWrapper, ZarrBackendEntrypoint, ZarrStore
-from xarray.core import indexing
+from xarray.backends.zarr import ZarrBackendEntrypoint, ZarrStore
 from xarray.core.utils import close_on_error  # TODO: can this be public.
 
 try:
@@ -27,41 +23,6 @@ except ImportError:
 
 #  TODO: minimum kvikio version for supporting consolidated
 #  TODO: minimum xarray version for ZarrArrayWrapper._array 2023.10.0?
-
-
-class DummyZarrArrayWrapper(ZarrArrayWrapper):
-    def __init__(self, array: np.ndarray):
-        assert isinstance(array, np.ndarray)
-        self._array = array
-        self.filters = None
-        self.dtype = array.dtype
-        self.shape = array.shape
-
-    def __array__(self):
-        return self._array
-
-    def get_array(self):
-        return self._array
-
-    def __getitem__(self, key):
-        return self._array[key]
-
-
-class CupyZarrArrayWrapper(ZarrArrayWrapper):
-    def __array__(self):
-        return self.get_array()
-
-
-class EagerCupyZarrArrayWrapper(ZarrArrayWrapper):
-    """Used to wrap dimension coordinates."""
-
-    def __array__(self):
-        return self._array[:].get()
-
-    def get_duck_array(self):
-        # total hack: make a numpy array look like a Zarr array
-        # this gets us through Xarray's backend layers
-        return DummyZarrArrayWrapper(self._array[:].get())
 
 
 class GDSZarrStore(ZarrStore):
@@ -135,35 +96,6 @@ class GDSZarrStore(ZarrStore):
             write_region,
             safe_chunks,
         )
-
-    def open_store_variable(self, name, zarr_array):
-        try_nczarr = self._mode == "r"
-        dimensions, attributes = zarr_backend._get_zarr_dims_and_attrs(
-            zarr_array, zarr_backend.DIMENSION_KEY, try_nczarr
-        )
-
-        #### Changed from zarr array wrapper
-        # we want indexed dimensions to be loaded eagerly
-        # Right now we load in to device and then transfer to host
-        # But these should be small-ish arrays
-        # TODO: can we tell GDSStore to load as numpy array directly
-        # not cupy array?
-        array_wrapper = EagerCupyZarrArrayWrapper if name in dimensions else CupyZarrArrayWrapper
-        data = indexing.LazilyIndexedArray(array_wrapper(zarr_array))
-
-        attributes = dict(attributes)
-        encoding = {
-            "chunks": zarr_array.chunks,
-            "preferred_chunks": dict(zip(dimensions, zarr_array.chunks)),
-            "compressor": zarr_array.compressor,
-            "filters": zarr_array.filters,
-        }
-        # _FillValue needs to be in attributes, not encoding, so it will get
-        # picked up by decode_cf
-        if zarr_array.fill_value is not None:
-            attributes["_FillValue"] = zarr_array.fill_value
-
-        return Variable(dimensions, data, attributes, encoding)
 
 
 class KvikioBackendEntrypoint(ZarrBackendEntrypoint):
