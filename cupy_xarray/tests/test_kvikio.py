@@ -22,7 +22,7 @@ def store(tmp_path):
     )
 
     for var in ds.variables:
-        ds[var].encoding["compressor"] = None
+        ds[var].encoding["compressors"] = None
 
     store_path = tmp_path / "kvikio.zarr"
     ds.to_zarr(store_path, consolidated=True)
