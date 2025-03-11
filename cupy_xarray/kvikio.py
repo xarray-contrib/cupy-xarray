@@ -3,18 +3,14 @@
 arrays in GPU memory.
 """
 
-import os
-import warnings
-
-import cupy as cp
 from xarray.backends.common import _normalize_path  # TODO: can this be public
 from xarray.backends.store import StoreBackendEntrypoint
 from xarray.backends.zarr import ZarrBackendEntrypoint, ZarrStore
+from xarray.core.dataset import Dataset
 from xarray.core.utils import close_on_error  # TODO: can this be public.
 
 try:
     import kvikio.zarr
-    import zarr
 
     has_kvikio = True
 except ImportError:
@@ -23,79 +19,6 @@ except ImportError:
 
 #  TODO: minimum kvikio version for supporting consolidated
 #  TODO: minimum xarray version for ZarrArrayWrapper._array 2023.10.0?
-
-
-class GDSZarrStore(ZarrStore):
-    @classmethod
-    def open_group(
-        cls,
-        store,
-        mode="r",
-        synchronizer=None,
-        group=None,
-        consolidated=False,
-        consolidate_on_close=False,
-        chunk_store=None,
-        storage_options=None,
-        append_dim=None,
-        write_region=None,
-        safe_chunks=True,
-        stacklevel=2,
-    ):
-        # zarr doesn't support pathlib.Path objects yet. zarr-python#601
-        if isinstance(store, os.PathLike):
-            store = os.fspath(store)
-
-        open_kwargs = {
-            "mode": mode,
-            "synchronizer": synchronizer,
-            "path": group,
-            ########## NEW STUFF
-            "meta_array": cp.empty(()),
-        }
-        open_kwargs["storage_options"] = storage_options
-
-        if chunk_store:
-            open_kwargs["chunk_store"] = chunk_store
-            if consolidated is None:
-                consolidated = False
-
-        store = kvikio.zarr.GDSStore(store)
-
-        if consolidated is None:
-            try:
-                zarr_group = zarr.open_consolidated(store, **open_kwargs)
-            except KeyError:
-                warnings.warn(
-                    "Failed to open Zarr store with consolidated metadata, "
-                    "falling back to try reading non-consolidated metadata. "
-                    "This is typically much slower for opening a dataset. "
-                    "To silence this warning, consider:\n"
-                    "1. Consolidating metadata in this existing store with "
-                    "zarr.consolidate_metadata().\n"
-                    "2. Explicitly setting consolidated=False, to avoid trying "
-                    "to read consolidate metadata, or\n"
-                    "3. Explicitly setting consolidated=True, to raise an "
-                    "error in this case instead of falling back to try "
-                    "reading non-consolidated metadata.",
-                    RuntimeWarning,
-                    stacklevel=stacklevel,
-                )
-                zarr_group = zarr.open_group(store, **open_kwargs)
-        elif consolidated:
-            # TODO: an option to pass the metadata_key keyword
-            zarr_group = zarr.open_consolidated(store, **open_kwargs)
-        else:
-            zarr_group = zarr.open_group(store, **open_kwargs)
-
-        return cls(
-            zarr_group,
-            mode,
-            consolidate_on_close,
-            append_dim,
-            write_region,
-            safe_chunks,
-        )
 
 
 class KvikioBackendEntrypoint(ZarrBackendEntrypoint):
@@ -132,20 +55,29 @@ class KvikioBackendEntrypoint(ZarrBackendEntrypoint):
         consolidated=None,
         chunk_store=None,
         storage_options=None,
-        stacklevel=3,
-    ):
+        zarr_version=None,
+        zarr_format=None,
+        store=None,
+        engine=None,
+        use_zarr_fill_value_as_mask=None,
+        cache_members: bool = True,
+    ) -> Dataset:
         filename_or_obj = _normalize_path(filename_or_obj)
-        store = GDSZarrStore.open_group(
-            filename_or_obj,
-            group=group,
-            mode=mode,
-            synchronizer=synchronizer,
-            consolidated=consolidated,
-            consolidate_on_close=False,
-            chunk_store=chunk_store,
-            storage_options=storage_options,
-            stacklevel=stacklevel + 1,
-        )
+        if not store:
+            store = ZarrStore.open_group(
+                store=kvikio.zarr.GDSStore(root=filename_or_obj),
+                group=group,
+                mode=mode,
+                synchronizer=synchronizer,
+                consolidated=consolidated,
+                consolidate_on_close=False,
+                chunk_store=chunk_store,
+                storage_options=storage_options,
+                zarr_version=zarr_version,
+                use_zarr_fill_value_as_mask=None,
+                zarr_format=zarr_format,
+                cache_members=cache_members,
+            )
 
         store_entrypoint = StoreBackendEntrypoint()
         with close_on_error(store):
