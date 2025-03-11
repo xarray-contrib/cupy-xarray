@@ -17,10 +17,6 @@ except ImportError:
     has_kvikio = False
 
 
-#  TODO: minimum kvikio version for supporting consolidated
-#  TODO: minimum xarray version for ZarrArrayWrapper._array 2023.10.0?
-
-
 class KvikioBackendEntrypoint(ZarrBackendEntrypoint):
     """
     Xarray backend to read Zarr stores using 'kvikio' engine.
