@@ -5,7 +5,7 @@ dependencies:
   - cupy-core
   - rapidsai-nightly::kvikio>=25.04.00a
   - pip
-  - python=3.10
+  - python=3.11
   - sphinx
   - sphinx-design
   - sphinx-copybutton
@@ -15,8 +15,8 @@ dependencies:
   - ipywidgets
   - furo>=2024.8.6
   - myst-nb
-  - xarray
   - zarr>=3.0.3
   - pip:
+      - xarray @ git+https://github.com/pydata/xarray.git@0184702f16c3f744fc9096c7dac690626dcc6922 #https://github.com/pydata/xarray/pull/10078
       # relative to this file. Needs to be editable to be accepted.
       - --editable ..
