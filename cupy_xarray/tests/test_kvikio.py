@@ -42,7 +42,7 @@ def test_lazy_load(consolidated, store):
 
 @pytest.mark.parametrize("indexer", [slice(None), slice(2, 4), 2, [2, 3, 5]])
 def test_lazy_indexing(indexer, store):
-    with xr.open_dataset(store, engine="kvikio") as ds:
+    with zarr.config.enable_gpu(), xr.open_dataset(store, engine="kvikio") as ds:
         ds = ds.isel(x=indexer)
         for _, da in ds.data_vars.items():
             assert isinstance(da.variable._data, ExplicitlyIndexedNDArrayMixin)
