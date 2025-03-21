@@ -15,8 +15,8 @@ dependencies:
   - ipywidgets
   - furo>=2024.8.6
   - myst-nb
+  - xarray>=2025.03.0
   - zarr>=3.0.3
   - pip:
-      - xarray @ git+https://github.com/pydata/xarray.git@0184702f16c3f744fc9096c7dac690626dcc6922 #https://github.com/pydata/xarray/pull/10078
       # relative to this file. Needs to be editable to be accepted.
       - --editable ..
