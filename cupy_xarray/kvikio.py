@@ -3,6 +3,8 @@
 arrays in GPU memory.
 """
 
+import functools
+
 from xarray.backends.common import _normalize_path  # TODO: can this be public
 from xarray.backends.store import StoreBackendEntrypoint
 from xarray.backends.zarr import ZarrBackendEntrypoint, ZarrStore
@@ -11,6 +13,7 @@ from xarray.core.utils import close_on_error  # TODO: can this be public.
 
 try:
     import kvikio.zarr
+    import zarr
 
     has_kvikio = True
 except ImportError:
@@ -60,20 +63,31 @@ class KvikioBackendEntrypoint(ZarrBackendEntrypoint):
     ) -> Dataset:
         filename_or_obj = _normalize_path(filename_or_obj)
         if not store:
-            store = ZarrStore.open_group(
-                store=kvikio.zarr.GDSStore(root=filename_or_obj),
-                group=group,
-                mode=mode,
-                synchronizer=synchronizer,
-                consolidated=consolidated,
-                consolidate_on_close=False,
-                chunk_store=chunk_store,
-                storage_options=storage_options,
-                zarr_version=zarr_version,
-                use_zarr_fill_value_as_mask=None,
-                zarr_format=zarr_format,
-                cache_members=cache_members,
-            )
+            with zarr.config.enable_gpu():
+                _store = kvikio.zarr.GDSStore(root=filename_or_obj)
+
+                # Override default buffer prototype to be GPU buffer
+                # buffer_prototype = zarr.core.buffer.core.default_buffer_prototype()
+                buffer_prototype = zarr.core.buffer.gpu.buffer_prototype
+                _store.get = functools.partial(_store.get, prototype=buffer_prototype)
+                _store.get_partial_values = functools.partial(
+                    _store.get_partial_values, prototype=buffer_prototype
+                )
+
+                store = ZarrStore.open_group(
+                    store=_store,
+                    group=group,
+                    mode=mode,
+                    synchronizer=synchronizer,
+                    consolidated=consolidated,
+                    consolidate_on_close=False,
+                    chunk_store=chunk_store,
+                    storage_options=storage_options,
+                    zarr_version=zarr_version,
+                    use_zarr_fill_value_as_mask=None,
+                    zarr_format=zarr_format,
+                    cache_members=cache_members,
+                )
 
         store_entrypoint = StoreBackendEntrypoint()
         with close_on_error(store):
