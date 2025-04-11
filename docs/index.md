@@ -53,13 +53,13 @@ Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutoria
    :maxdepth: 1
    :caption: User Guide
 
-   source/cupy-basics
-   source/introduction
-   source/basic-computations
-   source/high-level-api
-   source/apply-ufunc
-   source/real-example-1
-   source/kvikio
+   examples/01_cupy-basics
+   examples/02_introduction
+   examples/03_basic-computations
+   examples/04_high-level-api
+   examples/05_apply-ufunc
+   examples/06_real-example
+   examples/07_kvikio
 
 
 **Tutorials & Presentations**:
