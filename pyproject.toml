@@ -1,12 +1,13 @@
 [build-system]
-requires = ["setuptools", "versioneer[toml]"]
+requires = ["setuptools>=77", "versioneer[toml]"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "cupy-xarray"
 description = "Interface for using cupy in xarray, providing convenience accessors."
 authors = [{name = "cupy-xarray developers"}]
-license = {text = "Apache License"}
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
