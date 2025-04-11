@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - cupy-core
-  - rapidsai-nightly::kvikio>=25.04.00a
+  - rapidsai::kvikio>=25.04.00
   - pip
   - python=3.11
   - sphinx
