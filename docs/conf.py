@@ -57,6 +57,7 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
     "dask": ("https://docs.dask.org/en/latest", None),
     "cupy": ("https://docs.cupy.dev/en/latest", None),
+    "kvikio": ("https://docs.rapids.ai/api/kvikio/stable", None),
     "xarray": ("http://docs.xarray.dev/en/latest/", None),
 }
 
