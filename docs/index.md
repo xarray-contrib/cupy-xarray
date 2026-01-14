@@ -59,6 +59,7 @@ Large parts of this documentations comes from [SciPy 2023 Xarray on GPUs tutoria
    examples/04_high-level-api
    examples/05_apply-ufunc
    examples/06_real-example
+   examples/07_kvikio
 
 
 **Tutorials & Presentations**:
