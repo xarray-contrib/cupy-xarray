@@ -4,7 +4,7 @@ channels:
 dependencies:
   - cupy-core
   - pip
-  - python=3.10
+  - python=3.13
   - sphinx
   - sphinx-design
   - sphinx-copybutton
@@ -18,3 +18,4 @@ dependencies:
   - pip:
       # relative to this file. Needs to be editable to be accepted.
       - --editable ..
+      - cog3pio[cuda] @ git+https://github.com/weiji14/cog3pio.git@178a3ffb8163c97f7af9e71bc68b6545a4e8e192 # https://github.com/weiji14/cog3pio/pull/71
