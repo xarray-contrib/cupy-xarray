@@ -5,7 +5,7 @@ dependencies:
   - cupy-core
   - pip
   - python=3.10
-  - sphinx
+  - sphinx<9 # https://github.com/xarray-contrib/sphinx-autosummary-accessors/issues/165
   - sphinx-design
   - sphinx-copybutton
   - sphinx-autosummary-accessors
