@@ -11,6 +11,7 @@ from cupy_xarray.cog3pio import Cog3pioBackendEntrypoint
 cog3pio = pytest.importorskip("cog3pio")
 
 
+# %%
 def test_entrypoint():
     assert "cog3pio" in xr.backends.list_engines()
 
@@ -32,3 +33,27 @@ def test_xarray_backend_open_dataarray():
         assert da.y.min() == 3490250.0
         assert da.y.max() == 3599950.0
         assert da.dtype == "uint8"
+
+
+def test_xarray_backend_open_mfdataset():
+    """
+    Ensure that passing engine='cog3pio' to xarray.open_mfdataset works to read multiple
+    Cloud-optimized GeoTIFF files from http urls. Also testing that `device_id=None`
+    works.
+    """
+    ds: xr.Dataset = xr.open_mfdataset(
+        paths=[
+            "https://github.com/developmentseed/titiler/raw/1.2.0/src/titiler/mosaic/tests/fixtures/B01.tif",
+            "https://github.com/developmentseed/titiler/raw/1.2.0/src/titiler/mosaic/tests/fixtures/B09.tif",
+        ],
+        engine=Cog3pioBackendEntrypoint,
+        concat_dim="band",
+        combine="nested",
+        device_id=None,
+    )
+    assert ds.sizes == {"band": 2, "y": 183, "x": 183}
+    assert ds.x.min() == 700260.0
+    assert ds.x.max() == 809460.0
+    assert ds.y.min() == 3490500.0
+    assert ds.y.max() == 3599700.0
+    assert ds.raster.dtype == "uint16"

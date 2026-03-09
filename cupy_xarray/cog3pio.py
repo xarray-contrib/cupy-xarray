@@ -17,7 +17,7 @@ class Cog3pioBackendEntrypoint(BackendEntrypoint):
     """
     Xarray backend to read GeoTIFF files using 'cog3pio' engine.
 
-    When using :py:func:`xarray.open_dataarray` with ``engine="cog3pio"``, the
+    When using :py:func:`xarray.open_dataarray` with ``engine="cog3pio"``, the optional
     ``device_id`` parameter can be set to the CUDA GPU id to do the decoding on.
 
     Examples
@@ -47,7 +47,7 @@ class Cog3pioBackendEntrypoint(BackendEntrypoint):
         filename_or_obj: str,
         *,
         drop_variables: str | Iterable[str] | None = None,
-        device_id: int,
+        device_id: int | None = None,
         # other backend specific keyword arguments
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
         mask_and_scale=None,
@@ -60,14 +60,18 @@ class Cog3pioBackendEntrypoint(BackendEntrypoint):
         filename_or_obj : str
             File path or url to a TIFF (.tif) image file that can be read by the
             nvTIFF or image-tiff backend library.
-        device_id : int
-            CUDA device ID on which to place the created cupy array.
+        device_id : int | None
+            CUDA device ID on which to place the created cupy array. Default is None,
+            which means device_id will be inferred via
+            :py:func:`cupy.cuda.runtime.getDevice`.
 
         Returns
         -------
         xarray.Dataset
 
         """
+        if device_id is None:
+            device_id: int = cp.cuda.runtime.getDevice()
 
         with cp.cuda.Stream(ptds=True):
             cog = CudaCogReader(path=filename_or_obj, device_id=device_id)
