@@ -5,6 +5,9 @@ build:
   os: "ubuntu-24.04"
   tools:
     python: "mambaforge-23.11"
+  jobs:
+    pre_create_environment:
+      - export MATURIN_PEP517_ARGS="--features cuda,pyo3";
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
