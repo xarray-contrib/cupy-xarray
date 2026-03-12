@@ -9,7 +9,11 @@ build:
     post_install:
       # https://github.com/weiji14/cog3pio/pull/71
       - export CONDA_PREFIX="$CONDA_ENVS_PATH/$CONDA_DEFAULT_ENV";
-        BINDGEN_EXTRA_CLANG_ARGS="-I $CONDA_PREFIX/include"
+        ln -s $CONDA_PREFIX/include/nvtiff.h $CONDA_PREFIX/targets/x86_64-linux/include/nvtiff.h;
+        ln -s $CONDA_PREFIX/include/nvtiff_version.h $CONDA_PREFIX/targets/x86_64-linux/include/nvtiff_version.h;
+        ln -s $CONDA_PREFIX/lib/libnvtiff.so $CONDA_PREFIX/targets/x86_64-linux/lib/libnvtiff.so;
+        RUSTFLAGS="-L$CONDA_PREFIX/targets/x86_64-linux/lib"
+        BINDGEN_EXTRA_CLANG_ARGS="-I $CONDA_PREFIX/targets/x86_64-linux/include"
         MATURIN_PEP517_ARGS="--features cuda,pyo3"
         mamba run --prefix "$CONDA_PREFIX" pip install -v "cog3pio[cuda] @ git+https://github.com/weiji14/cog3pio.git@ce268b0ccb58ff0c7e329cdf38f2326a4fac22e9"
       - pip list
