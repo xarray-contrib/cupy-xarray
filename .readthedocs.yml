@@ -9,6 +9,7 @@ build:
     post_install:
       # https://github.com/weiji14/cog3pio/pull/71
       - export CONDA_PREFIX="$CONDA_ENVS_PATH/$CONDA_DEFAULT_ENV";
+        sed --in-place "s/nvtiffTagDataType type/enum nvtiffTagDataType type/g" $CONDA_PREFIX/include/nvtiff.h;
         ln -s $CONDA_PREFIX/include/nvtiff.h $CONDA_PREFIX/targets/x86_64-linux/include/nvtiff.h;
         ln -s $CONDA_PREFIX/include/nvtiff_version.h $CONDA_PREFIX/targets/x86_64-linux/include/nvtiff_version.h;
         ln -s $CONDA_PREFIX/lib/libnvtiff.so $CONDA_PREFIX/targets/x86_64-linux/lib/libnvtiff.so;
