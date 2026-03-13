@@ -3,9 +3,9 @@
 ## Version 0.1.5 - 2026-03-14
 
 This release removes `cupy` as a required dependency for PyPI installs, so that users
-can choose between different pre-compiled version. Please install `cupy` manually
+can choose between different pre-compiled versions. Please install `cupy` manually
 following instructions at <https://docs.cupy.dev/en/stable/install.html>. It also fixes a
-`TypeError: isinstance()` bug related to dask, and will requires a minimum version of
+`TypeError: isinstance()` bug related to dask, and will require a minimum version of
 Python 3.10+.
 
 ### What's Changed
