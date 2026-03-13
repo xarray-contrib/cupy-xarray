@@ -1,5 +1,34 @@
 # Changelog
 
+## Version 0.1.5 - 2026-03-14
+
+This release removes `cupy` as a required dependency for PyPI installs, so that users
+can choose between different pre-compiled version. Please install `cupy` manually
+following instructions at <https://docs.cupy.dev/en/stable/install.html>. It also fixes a
+`TypeError: isinstance()` bug related to dask, and will requires a minimum version of
+Python 3.10+.
+
+### What's Changed
+
+- Pin minimum version of furo to 2024.8.6 ([#64](https://github.com/xarray-contrib/cupy-xarray/pull/64))
+- Check if Dask is installed ([#62](https://github.com/xarray-contrib/cupy-xarray/pull/62))
+- Let user decide which cupy version to use ([#67](https://github.com/xarray-contrib/cupy-xarray/pull/67))
+- Separate and number tutorials ([#72](https://github.com/xarray-contrib/cupy-xarray/pull/72))
+- Set minimum supported version to Python 3.10+ ([#76](https://github.com/xarray-contrib/cupy-xarray/pull/76))
+- Set license and license-files key in project metadata to follow PEP639 ([#75](https://github.com/xarray-contrib/cupy-xarray/pull/75))
+
+### Contributors
+
+- [Wei Ji Leong](https://github.com/weiji14)
+- [Jacob Tomlinson](https://github.com/jacobtomlinson)
+- [Justus Magin](https://github.com/keewis)
+- [Max Jones](https://github.com/maxrjones)
+- [Tobias Hölzer](https://github.com/relativityhd)
+
+**Full Changelog**: <https://github.com/xarray-contrib/cupy-xarray/compare/0.1.4...0.1.5>
+
+---
+
 ## Version 0.1.4 - 2024-07-27
 
 This release brings several documentation improvements at
