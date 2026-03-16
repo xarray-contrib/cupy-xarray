@@ -22,6 +22,8 @@ dependencies = [
 [project.optional-dependencies]
 test = [
     "dask",
+    "netcdf",
+    "pooch",
     "pytest",
 ]
 
