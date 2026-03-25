@@ -68,8 +68,8 @@ First we'll create and activate the build environment:
 
 .. code-block:: sh
 
-    conda env create --file ci/requirements/environment.yml
-    conda activate cupy-xarray-tests
+    conda env create --file ci/doc.yml
+    conda activate cupy-xarray
 
 At this point you should be able to import *cupy-xarray* from your locally
 built version.
@@ -146,7 +146,7 @@ To build the documentation, you will need to requirements listed in ``ci/doc.yml
 You can create an environment for building the documentation using::
 
     conda env create --file ci/doc.yml
-    conda activate cupy-xarray-doc
+    conda activate cupy-xarray
 
 You can then build the documentation using::
 

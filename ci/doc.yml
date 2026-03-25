@@ -1,4 +1,4 @@
-name: cupy-xarray-doc
+name: cupy-xarray
 channels:
   - conda-forge
 dependencies:
