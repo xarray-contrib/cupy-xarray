@@ -130,8 +130,10 @@ Running the test suite
 ----------------------
 
 *cupy-xarray* uses the `pytest <https://docs.pytest.org/en/latest/contents.html>`_
-framework for testing. You can run the test suite using::
+framework for testing. You'll need to install some dependencies and then run the test
+suite like so::
 
+    pip install --group test
     pytest --doctest-modules cupy_xarray
 
 Contributing documentation
