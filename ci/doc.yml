@@ -2,9 +2,6 @@ name: cupy-xarray-doc
 channels:
   - conda-forge
 dependencies:
-  - clang
-  - cuda-crt
-  - cuda-cudart-dev
   - cupy-core!=14.0.0,!=14.0.1 # https://github.com/cupy/cupy/issues/9777
   - pip
   - python=3.13
