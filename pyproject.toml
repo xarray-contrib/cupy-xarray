@@ -23,8 +23,12 @@ dependencies = [
 cog3pio = "cupy_xarray.cog3pio:Cog3pioBackendEntrypoint"
 
 [project.optional-dependencies]
+
+[dependency-groups]
 test = [
     "dask",
+    "netcdf4",
+    "pooch",
     "pytest",
 ]
 

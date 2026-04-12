@@ -68,8 +68,8 @@ First we'll create and activate the build environment:
 
 .. code-block:: sh
 
-    conda env create --file ci/requirements/environment.yml
-    conda activate cupy-xarray-tests
+    conda env create --file ci/doc.yml
+    conda activate cupy-xarray
 
 At this point you should be able to import *cupy-xarray* from your locally
 built version.
@@ -130,8 +130,10 @@ Running the test suite
 ----------------------
 
 *cupy-xarray* uses the `pytest <https://docs.pytest.org/en/latest/contents.html>`_
-framework for testing. You can run the test suite using::
+framework for testing. You'll need to install some dependencies and then run the test
+suite like so::
 
+    pip install --group test
     pytest --doctest-modules cupy_xarray
 
 Contributing documentation
@@ -140,11 +142,11 @@ Contributing documentation
 We greatly appreciate documentation improvements. The docs are built from the docstrings
 in the code and the docs in the ``docs`` directory.
 
-To build the documentation, you will need to requirements listed in ``ci/doc.yml``.
+To build the docs, you will need to install the requirements listed in ``ci/doc.yml``.
 You can create an environment for building the documentation using::
 
     conda env create --file ci/doc.yml
-    conda activate cupy-xarray-doc
+    conda activate cupy-xarray
 
 You can then build the documentation using::
 
