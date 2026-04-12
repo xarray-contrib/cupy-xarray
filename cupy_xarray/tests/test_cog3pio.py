@@ -6,9 +6,9 @@ import cupy as cp
 import pytest
 import xarray as xr
 
-from cupy_xarray.cog3pio import Cog3pioBackendEntrypoint
-
 cog3pio = pytest.importorskip("cog3pio")
+
+from cupy_xarray.cog3pio import Cog3pioBackendEntrypoint  # noqa: E402, F401
 
 
 # %%
@@ -23,7 +23,7 @@ def test_xarray_backend_open_dataarray():
     """
     with xr.open_dataarray(
         filename_or_obj="https://github.com/developmentseed/titiler/raw/1.2.0/src/titiler/mosaic/tests/fixtures/TCI.tif",
-        engine=Cog3pioBackendEntrypoint,
+        engine="cog3pio",
         device_id=0,
     ) as da:
         assert isinstance(da.data, cp.ndarray)
@@ -46,7 +46,7 @@ def test_xarray_backend_open_mfdataset():
             "https://github.com/developmentseed/titiler/raw/1.2.0/src/titiler/mosaic/tests/fixtures/B01.tif",
             "https://github.com/developmentseed/titiler/raw/1.2.0/src/titiler/mosaic/tests/fixtures/B09.tif",
         ],
-        engine=Cog3pioBackendEntrypoint,
+        engine="cog3pio",
         concat_dim="band",
         combine="nested",
         device_id=None,
