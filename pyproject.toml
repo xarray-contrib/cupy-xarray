@@ -19,6 +19,9 @@ dependencies = [
     "xarray>=2024.02.0",
 ]
 
+[project.entry-points."xarray.backends"]
+cog3pio = "cupy_xarray.cog3pio:Cog3pioBackendEntrypoint"
+
 [project.optional-dependencies]
 
 [dependency-groups]

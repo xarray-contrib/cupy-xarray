@@ -5,6 +5,11 @@ build:
   os: "ubuntu-24.04"
   tools:
     python: "mambaforge-23.11"
+  jobs:
+    post_install:
+      - export CONDA_PREFIX="$CONDA_ENVS_PATH/$CONDA_DEFAULT_ENV";
+        mamba run --prefix "$CONDA_PREFIX" pip install --verbose --pre --extra-index-url https://test.pypi.org/simple/ cog3pio==0.1.0b2
+      - pip list
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
