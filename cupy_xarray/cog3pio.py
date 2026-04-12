@@ -5,7 +5,7 @@
 import os
 from collections.abc import Iterable
 
-import cupy as cp  # type: ignore[import-untyped]
+import cupy as cp
 import numpy as np
 import xarray as xr
 from cog3pio import CudaCogReader
@@ -22,12 +22,12 @@ class Cog3pioBackendEntrypoint(BackendEntrypoint):
 
     Examples
     --------
-    Read a GeoTIFF from a HTTP url into an [xarray.DataArray][]:
+    Read a GeoTIFF from a HTTP url into an :class:`xarray.DataArray`:
 
     >>> import xarray as xr
     >>> # Read GeoTIFF into an xarray.DataArray
     >>> dataarray: xr.DataArray = xr.open_dataarray(
-    ...     filename_or_obj="https://github.com/OSGeo/gdal/raw/v3.11.0/autotest/gcore/data/byte_zstd.tif",
+    ...     filename_or_obj="https://github.com/OSGeo/gdal/raw/v3.11.0/autotest/gcore/data/byte.tif",
     ...     engine="cog3pio",
     ...     device_id=0,  # cuda:0
     ... )
@@ -40,9 +40,9 @@ class Cog3pioBackendEntrypoint(BackendEntrypoint):
 
     description = "Use .tif files in Xarray"
     open_dataset_parameters = ("filename_or_obj", "drop_variables", "device_id")
-    url = "https://github.com/weiji14/cog3pio"
+    url = "https://cog3pio.readthedocs.io/en/latest/"
 
-    def open_dataset(  # type: ignore[override]
+    def open_dataset(
         self,
         filename_or_obj: str,
         *,
@@ -53,13 +53,13 @@ class Cog3pioBackendEntrypoint(BackendEntrypoint):
         mask_and_scale=None,
     ) -> xr.Dataset:
         """
-        Backend open_dataset method used by Xarray in [xarray.open_dataset][].
+        Backend open_dataset method used by Xarray in :py:func:`xarray.open_dataset`.
 
         Parameters
         ----------
         filename_or_obj : str
-            File path or url to a TIFF (.tif) image file that can be read by the
-            nvTIFF or image-tiff backend library.
+            File path or url to a TIFF (.tif) image file that can be read by cog3pio's
+            nvTIFF backend.
         device_id : int | None
             CUDA device ID on which to place the created cupy array. Default is None,
             which means device_id will be inferred via
