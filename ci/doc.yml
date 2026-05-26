@@ -4,7 +4,7 @@ channels:
 dependencies:
   - cupy-core!=14.0.0,!=14.0.1 # https://github.com/cupy/cupy/issues/9777
   - pip
-  - python=3.10
+  - python=3.12
   - sphinx
   - sphinx-design
   - sphinx-copybutton
