@@ -2,6 +2,7 @@
 `cog3pio` backend for xarray to read TIFF files directly into CuPy arrays in GPU memory.
 """
 
+import math
 import os
 from collections.abc import Iterable
 
@@ -75,13 +76,15 @@ class Cog3pioBackendEntrypoint(BackendEntrypoint):
 
         with cp.cuda.Stream(ptds=True):
             cog = CudaCogReader(path=filename_or_obj, device_id=device_id)
-            array_: cp.ndarray = cp.from_dlpack(cog)  # 1-D Array
+            array: cp.ndarray = cp.from_dlpack(cog)  # 1-D Array
             x_coords, y_coords = cog.xy_coords()  # TODO consider using rasterix
             height, width = (len(y_coords), len(x_coords))
-            channels: int = len(array_) // (height * width)
-            # TODO make API to get proper 3-D shape directly, or use cuTENSOR
-            array_ = array_.reshape(height, width, channels)  # HWC
-            array = array_.transpose(2, 0, 1)  # CHW
+            channels: int = math.prod(array.shape) // (height * width)
+            if array.ndim == 1:
+                # Workaround to convert from 1-D to 3-D shape
+                # TODO remove once PyCapule returns 3-D shape (e.g. via cuTENSOR)
+                array = array.reshape(height, width, channels)  # HWC
+                array = array.transpose(2, 0, 1)  # CHW
 
         dataarray: xr.DataArray = xr.DataArray(
             data=array,
