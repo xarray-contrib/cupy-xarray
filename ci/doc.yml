@@ -2,6 +2,7 @@ name: cupy-xarray
 channels:
   - conda-forge
 dependencies:
+  - cog3pio>=0.1.0
   - cupy-core!=14.0.0,!=14.0.1 # https://github.com/cupy/cupy/issues/9777
   - pip
   - python=3.13
@@ -12,7 +13,6 @@ dependencies:
   - ipython
   - ipykernel
   - ipywidgets
-  - libnvtiff-dev=0.6.0
   - furo>=2024.8.6
   - myst-nb
   - xarray
