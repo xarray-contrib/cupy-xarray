@@ -23,6 +23,9 @@ dependencies = [
 cog3pio = "cupy_xarray.cog3pio:Cog3pioBackendEntrypoint"
 
 [project.optional-dependencies]
+tiff = [
+    "cog3pio>=0.1.0; platform_system == 'Linux' and (platform_machine == 'x86_64' or platform_machine == 'aarch64')"
+]
 
 [dependency-groups]
 test = [

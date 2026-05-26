@@ -18,13 +18,12 @@ CuPy-Xarray is a Python library that leverages [CuPy](https://cupy.dev/), a GPU 
 
 > `cupy-xarray` will use an existing cupy installation, hence cupy needs to be installed manually! Please follow cupy's install instructions at <https://docs.cupy.dev/en/stable/install.html>.
 
-CuPy-Xarray can be installed using `pip` or `conda`:
+CuPy-Xarray can be installed using `conda` or `pip`:
 
 From Conda Forge:
 
 ```bash
-
-conda install cupy-xarray -c conda-forge
+conda install -c conda-forge cupy-xarray
 ```
 
 From PyPI:
@@ -37,6 +36,23 @@ The latest version from Github:
 
 ```bash
 pip install git+https://github.com/xarray-contrib/cupy-xarray.git
+```
+
+### Extras
+
+To enable the [`cog3pio`](/api.rst#module-cupy_xarray.cog3pio) backend for reading
+TIFFs (only available for linux-x86_64 and linux-aarch64), do:
+
+From Conda Forge:
+
+```bash
+conda install -c conda-forge cupy-xarray cog3pio
+```
+
+From PyPI:
+
+```bash
+pip install cupy-xarray[tiff]
 ```
 
 ## Acknowledgements
