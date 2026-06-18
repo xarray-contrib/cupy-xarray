@@ -54,9 +54,10 @@ html_static_path = ["_static"]
 nb_execution_mode = "off"
 
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3/", None),
-    "dask": ("https://docs.dask.org/en/latest", None),
+    "cog3pio": ("https://cog3pio.readthedocs.io/en/latest", None),
     "cupy": ("https://docs.cupy.dev/en/latest", None),
+    "dask": ("https://docs.dask.org/en/latest", None),
+    "python": ("https://docs.python.org/3/", None),
     "xarray": ("http://docs.xarray.dev/en/latest/", None),
 }
 
