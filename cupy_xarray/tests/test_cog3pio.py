@@ -51,6 +51,10 @@ def test_xarray_backend_open_mfdataset():
         combine="nested",
         device_id=None,
     )
+    ds.raster.load()  # inplace load, requires https://github.com/pydata/xarray/pull/11381
+    # assert isinstance(
+    #     ds.raster, cp.ndarray  # TODO wait for https://github.com/pydata/xarray/pull/11383 ?
+    # )
     assert ds.sizes == {"band": 2, "y": 183, "x": 183}
     assert ds.x.min() == 700260.0
     assert ds.x.max() == 809460.0
