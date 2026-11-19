@@ -9,15 +9,15 @@ authors = [{name = "cupy-xarray developers"}]
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-dynamic = ["version"]
 dependencies = [
-    "xarray>=2024.02.0",
+    "xarray>=2024.7.0",
 ]
+dynamic = ["version"]
 
 [project.optional-dependencies]
 
