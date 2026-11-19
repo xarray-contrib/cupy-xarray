@@ -40,6 +40,10 @@ def test_xarray_backend_open_mfdataset():
     Ensure that passing engine='cog3pio' to xarray.open_mfdataset works to read multiple
     Cloud-optimized GeoTIFF files from http urls. Also testing that `device_id=None`
     works.
+
+    Note that this specifically goes through xarray's dask ChunkManagerEntrypoint. The
+    returned xarray.Dataset containing a dask.Array should show cupy.ndarray both in the
+    repr, and also when `.load()` or `.compute()` is called.
     """
     ds: xr.Dataset = xr.open_mfdataset(
         paths=[
@@ -50,11 +54,12 @@ def test_xarray_backend_open_mfdataset():
         concat_dim="band",
         combine="nested",
         device_id=None,
+        chunked_array_type="dask",
     )
+    assert isinstance(ds.raster.data._meta, cp.ndarray)  # repr should show as cupy.array
     ds.raster.load()  # inplace load, requires https://github.com/pydata/xarray/pull/11381
-    # assert isinstance(
-    #     ds.raster, cp.ndarray  # TODO wait for https://github.com/pydata/xarray/pull/11383 ?
-    # )
+    assert isinstance(ds.raster.data, cp.ndarray)  # requires github.com/pydata/xarray/pull/11383
+
     assert ds.sizes == {"band": 2, "y": 183, "x": 183}
     assert ds.x.min() == 700260.0
     assert ds.x.max() == 809460.0

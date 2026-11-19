@@ -19,4 +19,4 @@ dependencies:
   - pip:
       # relative to this file. Needs to be editable to be accepted.
       - --editable ..
-      - "xarray @ git+https://github.com/pydata/xarray.git@fb20c6844fa82649ebdb43930b11737359bf6646" # https://github.com/pydata/xarray/pull/11381
+      - "xarray @ git+https://github.com/pydata/xarray.git@01441f276314b0df1fe534abd5f3ec0ddde42406" # https://github.com/pydata/xarray/pull/11383

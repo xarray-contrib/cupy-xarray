@@ -25,7 +25,7 @@ cog3pio = "cupy_xarray.cog3pio:Cog3pioBackendEntrypoint"
 [project.optional-dependencies]
 tiff = [
     "cog3pio>=0.1.0; platform_system == 'Linux' and (platform_machine == 'x86_64' or platform_machine == 'aarch64')",
-    "xarray @ git+https://github.com/pydata/xarray.git@fb20c6844fa82649ebdb43930b11737359bf6646",  # https://github.com/pydata/xarray/pull/11381
+    "xarray @ git+https://github.com/pydata/xarray.git@01441f276314b0df1fe534abd5f3ec0ddde42406",  # https://github.com/pydata/xarray/pull/11383
 ]
 
 [dependency-groups]
