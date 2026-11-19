@@ -51,3 +51,19 @@ Methods
 
     Dataset.cupy.as_cupy
     Dataset.cupy.as_numpy
+
+
+Backends
+--------
+
+cog3pio
+~~~~~~~
+
+.. currentmodule:: cupy_xarray
+
+.. automodule:: cupy_xarray.cog3pio
+
+.. autosummary::
+   :toctree: generated/
+
+   Cog3pioBackendEntrypoint
