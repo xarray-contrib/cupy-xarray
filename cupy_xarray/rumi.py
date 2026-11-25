@@ -7,6 +7,7 @@ from collections.abc import Iterable
 
 import cupy as cp
 import numpy as np
+import pandas as pd
 import rasterix
 import rumi
 import xarray as xr
@@ -70,7 +71,7 @@ class RumiBackendEntrypoint(BackendEntrypoint):
             dlpack = rumi.read(
                 source=filename_or_obj,
                 header=header,
-                pattern="b y x",
+                pattern=None,  # default is (T, B, Y, X)
                 framework="dlpack",
                 device=f"cuda:{device_id}",
                 decode_backend="auto",
@@ -78,19 +79,30 @@ class RumiBackendEntrypoint(BackendEntrypoint):
             array: cp.ndarray = cp.from_dlpack(dlpack)
 
         info = rumi.info(source=filename_or_obj, header=header)
-        bands, height, width = array.shape
-        xy_index = rasterix.RasterIndex.from_transform(
-            affine=Affine(*info.transform), width=width, height=height, crs=info.crs
-        )
+        # Band/Channel coordinates
+        match array.ndim:
+            case 3:
+                bands, height, width = array.shape
+                bc_coords = {"band": np.arange(bands, dtype=np.uint8)}
+            case 4:
+                time, bands, height, width = array.shape
+                bc_coords = {
+                    "time": pd.Series(info.time),
+                    "band": np.arange(bands, dtype=np.uint8),
+                }
+        # Height/Width coordinates
+        try:
+            affine = Affine(*info.transform)
+            index = rasterix.RasterIndex.from_transform(
+                affine=affine, width=width, height=height, crs=info.crs
+            )
+            xy_coords = xr.Coordinates.from_xindex(index=index)
+        except TypeError:  # missing Affine transform
+            xy_coords = {"y": np.arange(height), "x": np.arange(width)}
 
         dataarray: xr.DataArray = xr.DataArray(
             data=array,
-            coords=xr.Coordinates(
-                coords={
-                    "band": np.arange(bands, dtype=np.uint8),
-                    **xr.Coordinates.from_xindex(index=xy_index),
-                }
-            ),
+            coords=xr.Coordinates(coords={**bc_coords, **xy_coords}),
             name=None,
             attrs=None,
         )
