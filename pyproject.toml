@@ -19,6 +19,9 @@ dependencies = [
     "xarray>=2024.02.0",
 ]
 
+[project.entry-points."xarray.backends"]
+rumi = "cupy_xarray.rumi:RumiBackendEntrypoint"
+
 [project.optional-dependencies]
 
 [dependency-groups]
