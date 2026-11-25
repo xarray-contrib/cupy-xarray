@@ -51,3 +51,20 @@ Methods
 
     Dataset.cupy.as_cupy
     Dataset.cupy.as_numpy
+
+
+
+Backends
+--------
+
+rumi
+~~~~
+
+.. currentmodule:: cupy_xarray
+
+.. automodule:: cupy_xarray.rumi
+
+.. autosummary::
+   :toctree: generated/
+
+   RumiBackendEntrypoint
